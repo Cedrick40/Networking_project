@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>LGU | Nexus — Engineering Intelligence Hub (Fixed)</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --lgu-deep: #0f172a;
+            --lgu-electric: #3b82f6;
+            --lgu-electric-dark: #2563eb;
+            --lgu-glass: rgba(255, 255, 255, 0.03);
+            --lgu-border: rgba(255, 255, 255, 0.1);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            color: var(--lgu-deep);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .nexus-logo { 
+            font-family: 'Space Grotesk', sans-serif; 
+            letter-spacing: -0.02em;
+        }
+
+        /* --- Header & Nav (Premium Glass) --- */
+        .nexus-header {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.25);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: rgba(255,255,255,0.8) !important;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            text-shadow: 0 0 8px rgba(59,130,246,0.5);
+        }
+
+        /* --- Hero Section (Proper Sizing - FIXED) --- */
+        .hero-section {
+            background: radial-gradient(ellipse at 30% 40%, #0f172a, #020617);
+            position: relative;
+            padding: 80px 0 120px;
+            overflow: hidden;
+        }
+
+        /* Subtle animated grid background */
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
+        /* Swiper Container Fix - slides have consistent height & spacing */
+        .heroSwiper {
+            width: 100%;
+            padding: 20px 0 50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .swiper-slide {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 48px;
+            padding: 4rem 2rem;
+            min-height: 480px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.5s ease, border-color 0.3s;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.3);
+        }
+
+        .swiper-slide:hover {
+            border-color: var(--lgu-electric);
+            background: rgba(15, 23, 42, 0.75);
+        }
+
+        /* Improved slide typography */
+        .slide-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+
+        .swiper-pagination-bullet {
+            background: #94a3b8;
+            opacity: 0.6;
+            width: 8px;
+            height: 8px;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #3b82f6;
+            opacity: 1;
+            width: 24px;
+            border-radius: 8px;
+        }
+
+        /* Floating Search Bar - perfectly aligned after hero */
+        .floating-search {
+            margin-top: -48px;
+            position: relative;
+            z-index: 20;
+        }
+
+        .search-glass {
+            background: white;
+            border-radius: 80px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .search-glass:focus-within {
+            box-shadow: 0 25px 40px -12px rgba(59,130,246,0.25);
+            border-color: #3b82f6;
+        }
+
+        /* --- Track Cards Enhanced --- */
+        .track-card {
+            background: white;
+            border-radius: 28px;
+            border: 1px solid #e9eef3;
+            padding: 1.8rem;
+            transition: var(--transition-smooth);
+            height: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        }
+
+        .track-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.1);
+            border-color: var(--lgu-electric);
+        }
+
+        .icon-box {
+            width: 52px;
+            height: 52px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition-smooth);
+        }
+
+        .track-card:hover .icon-box {
+            transform: scale(1.02) rotate(2deg);
+        }
+
+        /* --- Repository Clean --- */
+        .repo-container {
+            background: white;
+            border-radius: 28px;
+            border: 1px solid #eef2f6;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+        }
+
+        .repo-item {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid #f0f3f8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .repo-item:hover {
+            background: #fafcff;
+        }
+
+        /* --- Countdown Card Premium --- */
+        .countdown-card {
+            background: linear-gradient(145deg, #0f172a 0%, #0a0f1c 100%);
+            border-radius: 28px;
+            color: white;
+            padding: 1.8rem;
+            height: 100%;
+            border: 1px solid rgba(59,130,246,0.3);
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.2);
+        }
+
+        .count-unit {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(4px);
+            border-radius: 20px;
+            padding: 1rem 0.5rem;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .count-unit h3 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        /* --- Status Dot Animation --- */
+        .status-dot {
+            height: 10px;
+            width: 10px;
+            background-color: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            box-shadow: 0 0 6px #10b981;
+            animation: pulseGlow 1.8s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.6; transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16,185,129,0.5);}
+            70% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 8px rgba(16,185,129,0);}
+            100% { opacity: 0.6; transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16,185,129,0);}
+        }
+
+        /* --- Footer Neat --- */
+        .footer-neat {
+            background: #ffffff;
+            border-top: 1px solid #eef2f8;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section { padding: 50px 0 90px; }
+            .swiper-slide { min-height: 380px; padding: 2.5rem 1.5rem; border-radius: 32px; }
+            .slide-icon { font-size: 3rem; }
+            .display-3 { font-size: 2.2rem; }
+            .lead { font-size: 1rem; }
+            .floating-search { margin-top: -30px; }
+            .count-unit h3 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Premium Sticky Glass Header -->
+    <nav class="navbar navbar-expand-lg sticky-top nexus-header py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <i class="bi bi-cpu fs-2 text-primary" style="filter: drop-shadow(0 0 5px #3b82f6);"></i>
+                <span class="text-white fw-bold fs-4">LGU·NEXUS</span>
+                <span class="badge bg-primary bg-opacity-20 text-primary border border-primary rounded-pill px-2 py-0 fs-6 ms-1">v2.1</span>
+            </a>
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-2"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-2 gap-lg-3 align-items-center">
+                    <li class="nav-item"><a class="nav-link px-3" href="#">Console</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#">Topology</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#">Docs</a></li>
+                    <li class="nav-item"><a class="btn btn-primary rounded-pill px-4 py-2 fw-semibold" href="#"><i class="bi bi-key me-1"></i> Sign In</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with FIXED slide sizing (no overflow) -->
+    <section class="hero-section text-white">
+        <div class="container">
+            <div class="swiper heroSwiper">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 - Networking Intelligence -->
+                    <div class="swiper-slide text-center">
+                        <i class="bi bi-diagram-3-fill slide-icon text-primary"></i>
+                        <h2 class="display-3 fw-bold mb-4">Next-Gen Networking</h2>
+                        <p class="lead opacity-75 mx-auto" style="max-width: 700px;">Harness the power of Automation, SDN, and Intent-Based Infrastructure in our advanced simulation environment.</p>
+                        <div class="mt-4 d-flex gap-3 justify-content-center">
+                            <span class="badge bg-light text-dark rounded-pill px-3 py-2">Segment Routing</span>
+                            <span class="badge bg-light text-dark rounded-pill px-3 py-2">EVPN/VXLAN</span>
+                        </div>
+                    </div>
+                    <!-- Slide 2 - Cyber Resilience -->
+                    <div class="swiper-slide text-center">
+                        <i class="bi bi-shield-lock-fill slide-icon text-success"></i>
+                        <h2 class="display-3 fw-bold mb-4">Cyber Resilience</h2>
+                        <p class="lead opacity-75 mx-auto" style="max-width: 700px;">Simulate Zero-Trust Architectures and master real-world threat mitigation strategies with live firewalls.</p>
+                        <div class="mt-4 d-flex gap-3 justify-content-center">
+                            <span class="badge bg-light text-dark rounded-pill px-3 py-2">ZTNA Ready</span>
+                            <span class="badge bg-light text-dark rounded-pill px-3 py-2">SASE</span>
+                        </div>
+                    </div>
+                    <!-- Slide 3 - Automation+Cloud (extra for variety) -->
+                    <div class="swiper-slide text-center">
+                        <i class="bi bi-cloud-arrow-up-fill slide-icon text-warning"></i>
+                        <h2 class="display-3 fw-bold mb-4">NetDevOps Pipeline</h2>
+                        <p class="lead opacity-75 mx-auto" style="max-width: 700px;">Python, Ansible, Terraform — automate entire network stacks with CI/CD integration labs.</p>
+                        <div class="mt-4"><span class="badge bg-primary rounded-pill px-4 py-2">200+ Automation Scenarios</span></div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Search Bar - Fixed Position and interactive -->
+    <div class="container floating-search">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-11">
+                <div class="search-glass input-group p-1 ps-3">
+                    <span class="input-group-text bg-transparent border-0 d-none d-sm-flex"><i class="bi bi-search text-secondary fs-5"></i></span>
+                    <input type="text" class="form-control border-0 py-3 fs-6" placeholder="Search the Nexus knowledge base: OSPF, EVPN, Netmiko, Wireshark..." aria-label="Search">
+                    <button class="btn btn-primary rounded-pill px-4 fw-semibold mx-1">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="container py-5 mt-2">
+        <!-- Learning Tracks Section Header -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-2 border-bottom">
+            <div>
+                <span class="status-dot align-middle"></span>
+                <span class="text-uppercase small fw-bold text-primary tracking-wide">Active Learning Paths</span>
+                <h3 class="fw-bold mt-2">Engineering Tracks</h3>
+            </div>
+            <a href="#" class="btn btn-outline-primary rounded-pill fw-semibold">View all <i class="bi bi-arrow-right"></i></a>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="track-card">
+                    <div class="icon-box bg-primary bg-opacity-10 text-primary"><i class="bi bi-router-fill"></i></div>
+                    <h5 class="fw-bold fs-5">Routing Mastery</h5>
+                    <p class="text-muted small mb-3">Deep dive into BGP, OSPFv3, IS-IS, and modern Segment Routing with MPLS.</p>
+                    <a href="#" class="text-decoration-none small fw-semibold d-inline-flex align-items-center gap-1">Launch Lab <i class="bi bi-chevron-right"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="track-card">
+                    <div class="icon-box bg-success bg-opacity-10 text-success"><i class="bi bi-code-square"></i></div>
+                    <h5 class="fw-bold fs-5">NetDevOps</h5>
+                    <p class="text-muted small mb-3">Master Python, Ansible, and CI/CD pipelines to automate complex network topologies.</p>
+                    <a href="#" class="text-decoration-none small fw-semibold d-inline-flex align-items-center gap-1">Launch Lab <i class="bi bi-chevron-right"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="track-card">
+                    <div class="icon-box bg-warning bg-opacity-10 text-warning"><i class="bi bi-cloud-haze2-fill"></i></div>
+                    <h5 class="fw-bold fs-5">Virtualization</h5>
+                    <p class="text-muted small mb-3">Deploy Docker, Kubernetes, Proxmox and EVE-NG for high-availability networking.</p>
+                    <a href="#" class="text-decoration-none small fw-semibold d-inline-flex align-items-center gap-1">Launch Lab <i class="bi bi-chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resource Repository & Countdown Row -->
+        <div class="row g-4 mt-3">
+            <div class="col-lg-7">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <i class="bi bi-folder-symlink fs-4 text-primary"></i>
+                    <h4 class="fw-bold mb-0">Central Resource Repository</h4>
+                </div>
+                <div class="repo-container">
+                    <div class="repo-item">
+                        <div><i class="bi bi-file-earmark-zip me-3 text-primary fs-5"></i> <span class="fw-medium">LGU_Core_Nexus_OS_v4.iso</span></div>
+                        <button class="btn btn-sm btn-outline-secondary rounded-pill px-3"><i class="bi bi-cloud-arrow-down"></i> Download</button>
+                    </div>
+                    <div class="repo-item">
+                        <div><i class="bi bi-filetype-py me-3 text-success fs-5"></i> <span class="fw-medium">automation_library_v2.py</span></div>
+                        <button class="btn btn-sm btn-outline-secondary rounded-pill px-3"><i class="bi bi-git"></i> Clone</button>
+                    </div>
+                    <div class="repo-item">
+                        <div><i class="bi bi-filetype-pdf me-3 text-danger fs-5"></i> <span class="fw-medium">SRv6_Design_Whitepaper.pdf</span></div>
+                        <button class="btn btn-sm btn-outline-secondary rounded-pill px-3"><i class="bi bi-eye"></i> Preview</button>
+                    </div>
+                    <div class="repo-item border-0">
+                        <div><i class="bi bi-hdd-network me-3 text-info fs-5"></i> <span class="fw-medium">eve-ng_lab_topology.zip</span></div>
+                        <button class="btn btn-sm btn-outline-secondary rounded-pill px-3"><i class="bi bi-download"></i> Import</button>
+                    </div>
+                </div>
+                <div class="mt-3 text-end"><a href="#" class="small text-decoration-none fw-semibold">Browse 240+ artifacts →</a></div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="countdown-card h-100 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-calendar-event me-2"></i>CCNA 200-301</h5>
+                        <i class="bi bi-star-fill text-warning"></i>
+                    </div>
+                    <p class="small opacity-75">Exam window opens <strong class="text-white">May 15, 2026</strong> — secure your lab credits.</p>
+                    <div class="d-flex justify-content-between gap-3 my-2">
+                        <div class="count-unit flex-fill">
+                            <h3 class="fw-bold mb-0" id="days">00</h3>
+                            <small class="opacity-60 text-uppercase">Days</small>
+                        </div>
+                        <div class="count-unit flex-fill">
+                            <h3 class="fw-bold mb-0" id="hours">00</h3>
+                            <small class="opacity-60 text-uppercase">Hours</small>
+                        </div>
+                        <div class="count-unit flex-fill">
+                            <h3 class="fw-bold mb-0" id="mins">00</h3>
+                            <small class="opacity-60 text-uppercase">Mins</small>
+                        </div>
+                    </div>
+                    <button class="btn btn-light w-100 rounded-pill mt-4 fw-semibold py-2 shadow-sm">Review Exam Blueprint →</button>
+                    <div class="mt-3 text-center"><span class="badge bg-primary bg-opacity-25 rounded-pill px-3">+12 new practice exams added</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- additional stats strip - neat info -->
+        <div class="row mt-5 g-3">
+            <div class="col-sm-4">
+                <div class="bg-white rounded-4 p-3 d-flex align-items-center shadow-sm border">
+                    <i class="bi bi-hdd-stack fs-2 text-primary me-3"></i>
+                    <div><span class="text-secondary small">Active Pods</span><h5 class="fw-bold mb-0">42/48</h5></div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="bg-white rounded-4 p-3 d-flex align-items-center shadow-sm border">
+                    <i class="bi bi-person-workspace fs-2 text-success me-3"></i>
+                    <div><span class="text-secondary small">Engineers Online</span><h5 class="fw-bold mb-0">187</h5></div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="bg-white rounded-4 p-3 d-flex align-items-center shadow-sm border">
+                    <i class="bi bi-check2-circle fs-2 text-info me-3"></i>
+                    <div><span class="text-secondary small">Completed Labs</span><h5 class="fw-bold mb-0">2.4k</h5></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Neat Footer (Clean, minimal, network-themed) -->
+    <footer class="footer-neat py-4 mt-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <div class="d-flex align-items-center justify-content-center justify-content-md-start gap-2">
+                        <i class="bi bi-cpu text-primary"></i>
+                        <span class="fw-semibold">LGU Nexus Hub</span>
+                        <span class="text-muted small">| v2.1</span>
+                    </div>
+                    <p class="text-muted small mb-0 mt-2">&copy; 2026 LGU School of Computer Science — Engineering Intelligence Division.<br>All simulated topologies for academic use.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <div class="d-flex gap-3 justify-content-center justify-content-md-end">
+                        <a href="#" class="text-secondary text-decoration-none small"><i class="bi bi-slack"></i> Support</a>
+                        <a href="#" class="text-secondary text-decoration-none small"><i class="bi bi-github"></i> Labs Repo</a>
+                        <a href="#" class="text-secondary text-decoration-none small"><i class="bi bi-rss"></i> NOC Status</a>
+                    </div>
+                    <div class="mt-2">
+                        <span class="status-dot me-1"></span><span class="small text-muted">Core Infrastructure: Operational</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts: Bootstrap, Swiper, Countdown with robust fix -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Initialize Swiper with proper config, autoplay and fade effect for elegance
+        const swiper = new Swiper('.heroSwiper', {
+            loop: true,
+            effect: 'fade',
+            fadeEffect: { crossFade: true },
+            speed: 900,
+            autoplay: {
+                delay: 5500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            pagination: { 
+                el: '.swiper-pagination', 
+                clickable: true,
+                dynamicBullets: false
+            },
+            grabCursor: true,
+        });
+
+        // Accurate Countdown Timer (fixed timezone-safe)
+        function updateCountdown() {
+            const targetDate = new Date("May 15, 2026 00:00:00 GMT+0800").getTime(); // Use consistent target
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById('days').innerText = '0';
+                document.getElementById('hours').innerText = '0';
+                document.getElementById('mins').innerText = '0';
+                return;
+            }
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('mins').innerText = minutes;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // optional dynamic time in console (no need for extra element)
+    </script>
+</body>
+</html>
