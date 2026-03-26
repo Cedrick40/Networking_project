@@ -1,0 +1,329 @@
+/* TechHoodNet Custom Styles */
+/* Only for things Tailwind can't easily handle */
+
+/* Custom animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Custom scrollbar (better than Tailwind's default) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2c7da0;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #5e4b8c;
+}
+
+/* Print styles - hide header/footer when printing */
+@media print {
+    header, 
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+    }
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+    outline: 2px solid #2c7da0;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Loading spinner (if needed later) */
+.spinner {
+    border: 2px solid rgba(44, 125, 160, 0.1);
+    border-top-color: #2c7da0;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+@keyframes glowPulse {
+    0% {
+        filter: drop-shadow(0 0 5px rgba(0, 255, 200, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.9));
+    }
+    100% {
+        filter: drop-shadow(0 0 5px rgba(0, 255, 200, 0.5));
+    }
+}
+
+.logo-animation {
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo-animation:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.8));
+}
+/* Search Bar Animation */
+.search-input:focus {
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+/* Navigation Underline Animation */
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #8b5cf6, #a855f7);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Button Hover Effects */
+.btn-gradient {
+    background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+    transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.4);
+}
+
+/* Card Hover Effects */
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #8b5cf6;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a855f7;
+}
+
+/* Focus Styles */
+*:focus-visible {
+    outline: 2px solid #8b5cf6;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Loading Spinner */
+.spinner {
+    border: 2px solid rgba(139, 92, 246, 0.1);
+    border-top-color: #8b5cf6;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Pulse Animation for Notifications */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Print Styles */
+@media print {
+    header, 
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+}
+/* Mobile Menu Scroll Styles */
+#mobileMenu {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    scrollbar-width: thin; /* Thin scrollbar for Firefox */
+}
+
+#mobileMenu::-webkit-scrollbar {
+    width: 4px;
+}
+
+#mobileMenu::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+#mobileMenu::-webkit-scrollbar-thumb {
+    background: #8b5cf6;
+    border-radius: 4px;
+}
+
+#mobileMenu::-webkit-scrollbar-thumb:hover {
+    background: #6d28d9;
+}
+
+/* Ensure menu items are clickable and properly spaced */
+#mobileMenu a {
+    display: block;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Prevent body scroll when menu is open */
+body.menu-open {
+    overflow: hidden;
+}
+/* Dark Mode Backgrounds */
+.dark body {
+    background-color: #111827 !important;
+}
+
+.dark .bg-white {
+    background-color: #1f2937 !important;
+}
+
+.dark .bg-gray-50 {
+    background-color: #111827 !important;
+}
+
+.dark .text-gray-900 {
+    color: #f3f4f6 !important;
+}
+
+.dark .text-gray-700 {
+    color: #d1d5db !important;
+}
+
+.dark .text-gray-600 {
+    color: #9ca3af !important;
+}
+
+.dark .border-gray-200 {
+    border-color: #374151 !important;
+}
+
+.dark .border-gray-300 {
+    border-color: #4b5563 !important;
+}
+
+.dark .bg-gray-100 {
+    background-color: #374151 !important;
+}
+
+.dark .bg-gray-50 {
+    background-color: #1f2937 !important;
+}
+
+/* Card backgrounds */
+.dark .bg-white\/80 {
+    background-color: rgba(31, 41, 55, 0.8) !important;
+}
+
+.dark .bg-white\/95 {
+    background-color: rgba(31, 41, 55, 0.95) !important;
+}
+
+/* Input fields */
+.dark input,
+.dark textarea,
+.dark select {
+    background-color: #1f2937 !important;
+    border-color: #4b5563 !important;
+    color: #f3f4f6 !important;
+}
+
+.dark input::placeholder {
+    color: #9ca3af !important;
+}
+
+/* Make sure the header changes */
+.dark header {
+    background-color: rgba(17, 24, 39, 0.8) !important;
+}

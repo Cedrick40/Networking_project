@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-2">Search Results</h1>
+        <p class="text-gray-600 dark:text-gray-400 mb-8">
+            Showing results for: <span class="font-semibold text-[#2c7da0]">"{{ query }}"</span>
+        </p>
+        
+        {% if results %}
+            <div class="space-y-4">
+                {% for result in results %}
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                        <h3 class="text-xl font-semibold text-[#2c7da0] mb-2">{{ result.title }}</h3>
+                        <p class="text-gray-600 dark:text-gray-400">{{ result.description|truncatewords:50 }}</p>
+                        <a href="{{ result.url }}" class="inline-block mt-3 text-sm text-[#5e4b8c] hover:text-[#8b7ab8]">
+                            View details →
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-12">
+                <svg class="w-24 h-24 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">No results found</h3>
+                <p class="text-gray-500 dark:text-gray-400">Try different keywords or browse our members directory</p>
+                <a href="/members/" class="inline-block mt-4 px-6 py-2 bg-gradient-to-r from-[#2c7da0] to-[#5e4b8c] text-white rounded-lg hover:shadow-lg transition-all">
+                    Browse Members
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

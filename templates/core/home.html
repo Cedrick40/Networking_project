@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-16 text-center">
+    <h1 class="text-5xl font-bold mb-6">
+        Connect with
+        <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            IT & CS Professionals
+        </span>
+    </h1>
+    <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+        Join TechHoodNet — the community where developers, engineers, and tech enthusiasts collaborate and grow together.
+    </p>
+    <div class="flex gap-4 justify-center">
+        <a href="/accounts/signup/" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:shadow-lg">
+            Get Started — It's Free
+        </a>
+        <a href="/members/" class="px-6 py-3 border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20">
+            Browse Members
+        </a>
+    </div>
+    
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-8 border-t">
+        <div>
+            <div class="text-3xl font-bold text-blue-600">10K+</div>
+            <div class="text-gray-500">Members</div>
+        </div>
+        <div>
+            <div class="text-3xl font-bold text-purple-600">500+</div>
+            <div class="text-gray-500">Projects</div>
+        </div>
+        <div>
+            <div class="text-3xl font-bold text-blue-600">50+</div>
+            <div class="text-gray-500">Countries</div>
+        </div>
+        <div>
+            <div class="text-3xl font-bold text-purple-600">1.2K+</div>
+            <div class="text-gray-500">Connections</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

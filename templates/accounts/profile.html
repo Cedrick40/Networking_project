@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">My Profile</h1>
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        {% if user.bio %}
+            <p><strong>Bio:</strong> {{ user.bio }}</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
