@@ -6,9 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechHoodNet</title>
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS with Dark Mode Configuration -->
     <script src="https://cdn.tailwindcss.com"></script>
-     <!-- Custom CSS (for things Tailwind can't do) -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'tech-blue': '#2c7da0',
+                        'tech-purple': '#5e4b8c',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     
     <style>
@@ -49,22 +63,18 @@
     <script>
         // Theme Management
         (function() {
-            const theme = localStorage.getItem('theme') || 'light';
-            if (theme === 'dark') {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
                 document.documentElement.classList.add('dark');
-            }
-        })();
-        tailwind.config = {
-        darkMode: 'class',
-        theme: {
-            extend: {
-                colors: {
-                    'tech-blue': '#2c7da0',
-                    'tech-purple': '#5e4b8c',
+            } else if (savedTheme === 'light') {
+                document.documentElement.classList.remove('dark');
+            } else {
+                // Check system preference
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
                 }
             }
-        }
-    }
+        })();
     </script>
     <script src="{% static 'js/header.js' %}"></script>
 </body>

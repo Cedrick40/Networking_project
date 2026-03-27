@@ -50,3 +50,5 @@ def contact(request):
 
 def services(request):
     return render(request, 'core/services.html')
+def privacy(request):
+    return render(request, 'core/privacy.html')
