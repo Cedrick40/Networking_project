@@ -2,3 +2,37 @@
 *.sqlite3
 db.sqlite3
 db.sqlite3-journal
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+python-dev/
+
+# Django
+*.log
+*.sqlite3
+db.sqlite3
+db.sqlite3-journal
+/media/
+/staticfiles/
+/static/CACHE/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
