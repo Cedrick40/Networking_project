@@ -1,35 +1,35 @@
 {% load static %}
-<header class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-b border-purple-500/20 dark:border-purple-500/10 shadow-xl">
-    <div class="container mx-auto px-4">
+<header class="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-sm">
+    <div class="px-3 sm:px-6 lg:px-8">
         
         <!-- Top Row: Logo + Search + Actions -->
         <div class="flex items-center justify-between gap-2 py-2 md:py-3">
             
-            <!-- Logo with Brand Name -->
-            <a href="{% url 'core:home' %}" class="flex items-center space-x-2 flex-shrink-0 group">
+            <!-- Logo - BIGGER BRAND NAME ON ALL SCREENS -->
+            <a href="{% url 'core:home' %}" class="flex items-center gap-2 flex-shrink-0 group">
                 <img src="{% static 'images/logo/techhoodnet-logo.png' %}" 
                      alt="TechHoodNet"
-                     class="h-8 w-8 md:h-10 md:w-10 object-contain transition-transform duration-300 group-hover:scale-110">
+                     class="h-9 w-9 sm:h-10 sm:w-10 object-contain transition-transform duration-300 group-hover:scale-105">
                 <div class="flex flex-col">
-                    <span class="text-sm md:text-lg font-bold bg-gradient-to-r from-teal-400 via-purple-500 to-purple-600 bg-clip-text text-transparent">
+                    <span class="text-base sm:text-lg md:text-xl font-bold bg-gradient-to-r from-teal-400 via-purple-500 to-purple-600 bg-clip-text text-transparent whitespace-nowrap">
                         TechHoodNet
                     </span>
-                    <span class="text-[8px] text-gray-500 dark:text-gray-400 hidden sm:block">connect · collaborate · grow</span>
+                    <span class="text-[8px] sm:text-[9px] text-gray-500 dark:text-gray-400 hidden xs:block">connect · collaborate · grow</span>
                 </div>
             </a>
             
-            <!-- Search Bar - Desktop Only -->
-            <div class="hidden md:block flex-1 max-w-xl mx-6 relative">
-                <form action="{% url 'core:search' %}" method="get" class="relative">
+            <!-- Search Bar - Desktop -->
+            <div class="hidden md:flex flex-1 max-w-md lg:max-w-xl mx-4">
+                <form action="{% url 'core:search' %}" method="get" class="relative w-full">
                     <input type="text" 
                            name="q" 
                            id="searchInput"
-                           placeholder="🔍 Search members, projects, jobs... (Ctrl+K)" 
-                           class="w-full pl-10 pr-24 py-2 text-sm rounded-full border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           placeholder="Search members, projects, jobs..." 
+                           class="w-full pl-9 pr-16 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
-                    <button type="submit" class="absolute right-1.5 top-1/2 transform -translate-y-1/2 px-4 py-1 text-xs font-medium text-white bg-gradient-to-r from-purple-500 to-purple-600 rounded-full">
+                    <button type="submit" class="absolute right-1.5 top-1/2 transform -translate-y-1/2 px-3 py-1 text-xs font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700">
                         Search
                     </button>
                 </form>
@@ -37,34 +37,84 @@
             </div>
             
             <!-- Actions -->
-            <div class="flex items-center gap-1 md:gap-2 flex-shrink-0">
+            <div class="flex items-center gap-1 sm:gap-2">
                 
                 <!-- Mobile Search Button -->
-                <button id="mobileSearchBtn" class="md:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+                <button id="mobileSearchBtn" class="md:hidden p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800">
                     <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                 </button>
                 
-                <!-- Theme Dropdown -->
+                <!-- Theme Toggle - Light/Dark Only -->
                 <div class="relative">
-                    <button id="themeDropdownBtn" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <button id="themeDropdownBtn" class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800">
                         <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
                         </svg>
                     </button>
-                    <div id="themeDropdownMenu" class="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hidden z-50">
+                    <div id="themeDropdownMenu" class="absolute right-0 mt-2 w-28 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hidden z-50">
                         <button onclick="setTheme('light')" class="w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-t-lg">🌞 Light</button>
-                        <button onclick="setTheme('dark')" class="w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">🌙 Dark</button>
-                        <button onclick="setTheme('system')" class="w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-b-lg">💻 System</button>
+                        <button onclick="setTheme('dark')" class="w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-b-lg">🌙 Dark</button>
                     </div>
                 </div>
                 
                 <!-- User Section -->
                 {% if user.is_authenticated %}
+                    
+                    <!-- ===== NOTIFICATION BELL ===== -->
+                    <div class="relative">
+                        <button id="notificationBtn" class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 relative">
+                            <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                            </svg>
+                            <span id="notificationCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center hidden">3</span>
+                        </button>
+                        
+                        <div id="notificationDropdown" class="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hidden z-50">
+                            <div class="p-3 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Notifications</h3>
+                                <span class="text-xs text-purple-600 hover:underline cursor-pointer">Mark all read</span>
+                            </div>
+                            <div class="max-h-96 overflow-y-auto">
+                                <div class="flex items-start gap-3 p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border-b border-gray-100 dark:border-gray-700">
+                                    <div class="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                                        <span class="text-sm">👤</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm text-gray-700 dark:text-gray-300">New member joined: <span class="font-semibold">John Doe</span></p>
+                                        <span class="text-xs text-gray-500">2 min ago</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border-b border-gray-100 dark:border-gray-700">
+                                    <div class="w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                                        <span class="text-sm">📁</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm text-gray-700 dark:text-gray-300">Your project <span class="font-semibold">"AI Chatbot"</span> got a new star</p>
+                                        <span class="text-xs text-gray-500">1 hour ago</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                    <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                                        <span class="text-sm">💼</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm text-gray-700 dark:text-gray-300">New job matching your skills: <span class="font-semibold">Senior Developer</span></p>
+                                        <span class="text-xs text-gray-500">3 hours ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-2 border-t border-gray-200 dark:border-gray-700 text-center">
+                                <a href="/notifications/" class="text-sm text-purple-600 hover:text-purple-700">View all notifications →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ===== END OF NOTIFICATION BELL ===== -->
+                    
                     <!-- User Avatar Dropdown -->
                     <div class="relative">
-                        <button id="userDropdownBtn" class="flex items-center gap-1 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <button id="userDropdownBtn" class="flex items-center gap-1 p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800">
                             {% if user.avatar %}
                                 <img src="{{ user.avatar.url }}" alt="{{ user.username }}" class="w-7 h-7 md:w-8 md:h-8 rounded-full object-cover border border-purple-500">
                             {% else %}
@@ -72,29 +122,24 @@
                                     {{ user.username|make_list|first|upper }}
                                 </div>
                             {% endif %}
-                            <span class="hidden sm:block text-sm font-medium text-gray-700 dark:text-gray-300">{{ user.username }}</span>
+                            <span class="hidden sm:block text-sm font-medium text-gray-700 dark:text-gray-300">{{ user.username|truncatechars:8 }}</span>
                         </button>
                         
-                        <div id="userDropdownMenu" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hidden z-50">
-                            <a href="/profile/" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-t-lg">Profile</a>
-                            <a href="/dashboard/" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Dashboard</a>
-                            <a href="/settings/" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
+                        <div id="userDropdownMenu" class="absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hidden z-50">
+                            <a href="/profile/" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-t-lg">👤 Profile</a>
+                            <a href="/dashboard/" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">📊 Dashboard</a>
+                            <a href="/settings/" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">⚙️ Settings</a>
                             <hr class="my-1 border-gray-200 dark:border-gray-700">
-                            <a href="{% url 'accounts:logout' %}" class="block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-b-lg">Sign Out</a>
+                            <a href="{% url 'accounts:logout' %}" class="block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-b-lg">🚪 Sign Out</a>
                         </div>
                     </div>
                 {% else %}
-                    <!-- Auth Buttons -->
-                    <a href="{% url 'accounts:login' %}" class="hidden sm:block px-3 py-1 text-sm font-medium text-purple-600 dark:text-purple-400 hover:text-purple-700">
-                        Sign in
-                    </a>
-                    <a href="{% url 'accounts:signup' %}" class="hidden sm:block px-3 py-1 text-sm font-medium bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-full hover:shadow-md">
-                        Sign up
-                    </a>
+                    <a href="{% url 'accounts:login' %}" class="hidden sm:block px-3 py-1.5 text-sm font-medium text-purple-600 dark:text-purple-400 hover:text-purple-700">Sign in</a>
+                    <a href="{% url 'accounts:signup' %}" class="px-3 py-1.5 text-sm font-medium bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-md hover:shadow-md transition-all">Sign up</a>
                 {% endif %}
                 
                 <!-- Mobile Menu Button -->
-                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800">
                     <svg class="w-5 h-5 text-gray-700 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -102,16 +147,16 @@
             </div>
         </div>
         
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center gap-1 py-2 overflow-x-auto whitespace-nowrap scrollbar-hide">
-            <a href="{% url 'core:home' %}" class="px-3 py-1 text-sm font-medium rounded-full transition-all duration-200 {% if request.path == '/' %}bg-purple-500/20 text-purple-600 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50/50 dark:hover:bg-purple-900/20{% endif %}">Home</a>
-            <a href="{% url 'members:list' %}" class="px-3 py-1 text-sm font-medium rounded-full transition-all duration-200 {% if request.path|slice:':9' == '/members/' %}bg-purple-500/20 text-purple-600 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50/50 dark:hover:bg-purple-900/20{% endif %}">Members</a>
-            <a href="{% url 'projects:list' %}" class="px-3 py-1 text-sm font-medium rounded-full transition-all duration-200 {% if request.path|slice:':10' == '/projects/' %}bg-purple-500/20 text-purple-600 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50/50 dark:hover:bg-purple-900/20{% endif %}">Projects</a>
-            <a href="{% url 'core:services' %}" class="px-3 py-1 text-sm font-medium rounded-full transition-all duration-200 {% if request.path|slice:':10' == '/services/' %}bg-purple-500/20 text-purple-600 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50/50 dark:hover:bg-purple-900/20{% endif %}">Services</a>
-            <a href="{% url 'events:list' %}" class="px-3 py-1 text-sm font-medium rounded-full transition-all duration-200 {% if request.path|slice:':8' == '/events/' %}bg-purple-500/20 text-purple-600 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50/50 dark:hover:bg-purple-900/20{% endif %}">Events</a>
-            <a href="{% url 'jobs:list' %}" class="px-3 py-1 text-sm font-medium rounded-full transition-all duration-200 {% if request.path|slice:':6' == '/jobs/' %}bg-purple-500/20 text-purple-600 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50/50 dark:hover:bg-purple-900/20{% endif %}">Jobs</a>
-            <a href="{% url 'core:about' %}" class="px-3 py-1 text-sm font-medium rounded-full transition-all duration-200 {% if request.path|slice:':7' == '/about/' %}bg-purple-500/20 text-purple-600 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50/50 dark:hover:bg-purple-900/20{% endif %}">About</a>
-            <a href="{% url 'core:contact' %}" class="px-3 py-1 text-sm font-medium rounded-full transition-all duration-200 {% if request.path|slice:':9' == '/contact/' %}bg-purple-500/20 text-purple-600 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50/50 dark:hover:bg-purple-900/20{% endif %}">Contact</a>
+        <!-- Desktop Navigation - Full Width, Centered -->
+        <nav class="hidden md:flex items-center justify-center gap-0.5 py-2 border-t border-gray-100 dark:border-gray-800 mt-1">
+            <a href="{% url 'core:home' %}" class="px-4 py-1.5 text-sm font-medium rounded-md transition-all {% if request.path == '/' %}bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}">Home</a>
+            <a href="{% url 'members:list' %}" class="px-4 py-1.5 text-sm font-medium rounded-md transition-all {% if '/members/' in request.path %}bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}">Members</a>
+            <a href="{% url 'projects:list' %}" class="px-4 py-1.5 text-sm font-medium rounded-md transition-all {% if '/projects/' in request.path %}bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}">Projects</a>
+            <a href="{% url 'core:services' %}" class="px-4 py-1.5 text-sm font-medium rounded-md transition-all {% if '/services/' in request.path %}bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}">Services</a>
+            <a href="{% url 'events:list' %}" class="px-4 py-1.5 text-sm font-medium rounded-md transition-all {% if '/events/' in request.path %}bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}">Events</a>
+            <a href="{% url 'jobs:list' %}" class="px-4 py-1.5 text-sm font-medium rounded-md transition-all {% if '/jobs/' in request.path %}bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}">Jobs</a>
+            <a href="{% url 'core:about' %}" class="px-4 py-1.5 text-sm font-medium rounded-md transition-all {% if '/about/' in request.path %}bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}">About</a>
+            <a href="{% url 'core:contact' %}" class="px-4 py-1.5 text-sm font-medium rounded-md transition-all {% if '/contact/' in request.path %}bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}">Contact</a>
         </nav>
     </div>
 </header>
@@ -126,11 +171,7 @@
                    placeholder="Search members, projects, jobs..." 
                    class="flex-1 px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                    autofocus>
-            <button type="submit" class="p-3 bg-purple-500 text-white rounded-xl hover:bg-purple-600">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-            </button>
+            <button type="submit" class="px-4 py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700 font-medium">Search</button>
             <button type="button" id="closeMobileSearch" class="p-3 text-gray-500 hover:text-gray-700">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -140,18 +181,18 @@
     </div>
 </div>
 
-<!-- Mobile Menu - COMPLETELY REWRITTEN FOR RELIABILITY -->
+<!-- Mobile Menu -->
 <div id="mobileMenu" style="display: none;" class="fixed inset-x-0 top-[56px] bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-xl z-40 overflow-y-auto max-h-[calc(100vh-56px)]">
     <div class="py-4 px-4">
         <nav class="flex flex-col space-y-1">
-            <a href="{% url 'core:home' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">Home</a>
-            <a href="{% url 'members:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">Members</a>
-            <a href="{% url 'projects:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">Projects</a>
-            <a href="{% url 'core:services' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">Services</a>
-            <a href="{% url 'events:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">Events</a>
-            <a href="{% url 'jobs:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">Jobs</a>
-            <a href="{% url 'core:about' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">About</a>
-            <a href="{% url 'core:contact' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">Contact</a>
+            <a href="{% url 'core:home' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">🏠 Home</a>
+            <a href="{% url 'members:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">👥 Members</a>
+            <a href="{% url 'projects:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">📁 Projects</a>
+            <a href="{% url 'core:services' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">⚙️ Services</a>
+            <a href="{% url 'events:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">📅 Events</a>
+            <a href="{% url 'jobs:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">💼 Jobs</a>
+            <a href="{% url 'core:about' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">ℹ️ About</a>
+            <a href="{% url 'core:contact' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">📞 Contact</a>
         </nav>
         
         <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 flex gap-3">
@@ -184,19 +225,44 @@ if (userBtn && userMenu) {
     });
 }
 
-// ========== MOBILE MENU - SIMPLE AND RELIABLE ==========
+// ===== NOTIFICATION DROPDOWN =====
+const notificationBtn = document.getElementById('notificationBtn');
+const notificationDropdown = document.getElementById('notificationDropdown');
+const notificationCount = document.getElementById('notificationCount');
+
+if (notificationBtn && notificationDropdown) {
+    // Show badge with count (change '3' to actual count from backend)
+    if (notificationCount) {
+        notificationCount.classList.remove('hidden');
+        notificationCount.textContent = '3';
+    }
+    
+    notificationBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        notificationDropdown.classList.toggle('hidden');
+    });
+}
+
+// Close notification dropdown when clicking outside
+document.addEventListener('click', function(e) {
+    if (notificationDropdown && notificationBtn) {
+        if (!notificationDropdown.contains(e.target) && !notificationBtn.contains(e.target)) {
+            notificationDropdown.classList.add('hidden');
+        }
+    }
+});
+
+// Mobile Menu
 const mobileBtn = document.getElementById('mobileMenuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 
 if (mobileBtn && mobileMenu) {
-    // Toggle menu when hamburger is clicked
     mobileBtn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
         
         if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
             mobileMenu.style.display = 'block';
-            // Prevent body scroll when menu is open
             document.body.style.overflow = 'hidden';
         } else {
             mobileMenu.style.display = 'none';
@@ -204,7 +270,6 @@ if (mobileBtn && mobileMenu) {
         }
     });
     
-    // Close menu when clicking on any link inside the menu
     const menuLinks = mobileMenu.querySelectorAll('a');
     menuLinks.forEach(link => {
         link.addEventListener('click', function() {
@@ -214,12 +279,9 @@ if (mobileBtn && mobileMenu) {
     });
 }
 
-// Close mobile menu when clicking outside (optional)
 document.addEventListener('click', function(e) {
-    if (mobileMenu && mobileBtn) {
-        if (mobileMenu.style.display === 'block' && 
-            !mobileMenu.contains(e.target) && 
-            !mobileBtn.contains(e.target)) {
+    if (mobileMenu && mobileBtn && mobileMenu.style.display === 'block') {
+        if (!mobileMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
             mobileMenu.style.display = 'none';
             document.body.style.overflow = '';
         }
@@ -259,7 +321,6 @@ document.addEventListener('click', function() {
     if (userMenu) userMenu.classList.add('hidden');
 });
 
-// Prevent closing when clicking inside dropdowns
 if (themeMenu) {
     themeMenu.addEventListener('click', (e) => e.stopPropagation());
 }
@@ -267,7 +328,7 @@ if (userMenu) {
     userMenu.addEventListener('click', (e) => e.stopPropagation());
 }
 
-// Theme function
+// Theme function - Light/Dark only
 function setTheme(theme) {
     if (theme === 'dark') {
         document.documentElement.classList.add('dark');
@@ -275,13 +336,6 @@ function setTheme(theme) {
     } else if (theme === 'light') {
         document.documentElement.classList.remove('dark');
         localStorage.setItem('theme', 'light');
-    } else if (theme === 'system') {
-        localStorage.setItem('theme', 'system');
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
     }
     if (themeMenu) themeMenu.classList.add('hidden');
 }
@@ -293,10 +347,6 @@ function setTheme(theme) {
         document.documentElement.classList.add('dark');
     } else if (savedTheme === 'light') {
         document.documentElement.classList.remove('dark');
-    } else if (savedTheme === 'system') {
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark');
-        }
     } else {
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.classList.add('dark');
@@ -304,7 +354,7 @@ function setTheme(theme) {
     }
 })();
 
-// Desktop search suggestions
+// Search suggestions
 const searchInput = document.getElementById('searchInput');
 const suggestionsContainer = document.getElementById('searchSuggestions');
 let suggestionTimeout;
@@ -358,6 +408,36 @@ document.addEventListener('keydown', function(e) {
         }
     }
 });
+
+// ===== STICKY HEADER SHRINK EFFECT =====
+let lastScrollTop = 0;
+const header = document.querySelector('header');
+const headerTopRow = document.querySelector('.flex.items-center.justify-between.gap-2.py-2.md\\:py-3');
+
+if (header) {
+    window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > 80) {
+            // Scrolled down - shrink header
+            header.style.paddingTop = '0.25rem';
+            header.style.paddingBottom = '0.25rem';
+            if (headerTopRow) {
+                headerTopRow.style.paddingTop = '0.25rem';
+                headerTopRow.style.paddingBottom = '0.25rem';
+            }
+        } else {
+            // At top - normal size
+            header.style.paddingTop = '';
+            header.style.paddingBottom = '';
+            if (headerTopRow) {
+                headerTopRow.style.paddingTop = '';
+                headerTopRow.style.paddingBottom = '';
+            }
+        }
+        lastScrollTop = scrollTop;
+    });
+}
 </script>
 
 <style>
@@ -371,11 +451,85 @@ document.addEventListener('keydown', function(e) {
     #mobileSearchModal.hidden {
         display: none;
     }
-    .container {
-        width: 100%;
-        max-width: 100%;
-    }
     body {
         overflow-x: hidden;
+    }
+    /* Show tagline on screens above 400px */
+    @media (min-width: 400px) {
+        .xs\:block {
+            display: block;
+        }
+    }
+    .whitespace-nowrap {
+        white-space: nowrap;
+    }
+    /* ===== PROFESSIONAL ADDITIONS ===== */
+    
+    /* 1. Sticky Header Transition */
+    .header-shrink {
+        padding-top: 0.25rem !important;
+        padding-bottom: 0.25rem !important;
+        transition: all 0.3s ease;
+    }
+    
+    header {
+        transition: all 0.3s ease;
+    }
+    
+    /* 2. Active Page Underline Effect */
+    .nav-link-active {
+        position: relative;
+    }
+    
+    .nav-link-active::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 3px;
+        background: linear-gradient(90deg, #a855f7, #8b5cf6);
+        border-radius: 2px;
+        animation: expandWidth 0.3s ease-out forwards;
+    }
+    
+    @keyframes expandWidth {
+        from {
+            width: 4px;
+            opacity: 0.5;
+        }
+        to {
+            width: 20px;
+            opacity: 1;
+        }
+    }
+    
+    /* 3. Notification Badge Pulse Animation */
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.3);
+            opacity: 0.7;
+        }
+    }
+    
+    .notification-pulse {
+        animation: pulse 2s infinite;
+    }
+    
+    /* 4. Smooth Dropdown Animation */
+    .dropdown-menu {
+        transition: all 0.2s ease;
+        transform-origin: top right;
+    }
+    
+    .dropdown-menu.show {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
     }
 </style>

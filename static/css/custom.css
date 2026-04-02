@@ -327,3 +327,7 @@ body.menu-open {
 .dark header {
     background-color: rgba(17, 24, 39, 0.8) !important;
 }
+#themeToggle {
+    position: relative;
+    z-index: 9999;
+}
