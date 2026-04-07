@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,22 +60,7 @@
         {% block content %}{% endblock %}
     </main>
     
-    <script>
-        // Theme Management
-        (function() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.documentElement.classList.add('dark');
-            } else if (savedTheme === 'light') {
-                document.documentElement.classList.remove('dark');
-            } else {
-                // Check system preference
-                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    document.documentElement.classList.add('dark');
-                }
-            }
-        })();
-    </script>
+    <!-- ONLY ONE SCRIPT - header.js handles everything -->
     <script src="{% static 'js/header.js' %}"></script>
 </body>
 </html>

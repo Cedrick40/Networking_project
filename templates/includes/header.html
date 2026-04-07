@@ -1,11 +1,11 @@
 {% load static %}
-<header class="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-sm">
+<header id="mainHeader" class="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 transition-all duration-300">
     <div class="px-3 sm:px-6 lg:px-8">
         
         <!-- Top Row: Logo + Search + Actions -->
-        <div class="flex items-center justify-between gap-2 py-2 md:py-3">
+        <div id="headerTop" class="flex items-center justify-between gap-3 py-3">
             
-            <!-- Logo - BIGGER BRAND NAME ON ALL SCREENS -->
+            <!-- Logo -->
             <a href="{% url 'core:home' %}" class="flex items-center gap-2 flex-shrink-0 group">
                 <img src="{% static 'images/logo/techhoodnet-logo.png' %}" 
                      alt="TechHoodNet"
@@ -29,7 +29,7 @@
                     <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
-                    <button type="submit" class="absolute right-1.5 top-1/2 transform -translate-y-1/2 px-3 py-1 text-xs font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700">
+                    <button type="submit" class="absolute right-1.5 top-1/2 transform -translate-y-1/2 px-3 py-1 text-xs font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700 transition">
                         Search
                     </button>
                 </form>
@@ -46,23 +46,15 @@
                     </svg>
                 </button>
                 
-                <!-- Theme Toggle - Light/Dark Only -->
-                <div class="relative">
-                    <button id="themeDropdownBtn" class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800">
-                        <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                        </svg>
-                    </button>
-                    <div id="themeDropdownMenu" class="absolute right-0 mt-2 w-28 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hidden z-50">
-                        <button onclick="setTheme('light')" class="w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-t-lg">🌞 Light</button>
-                        <button onclick="setTheme('dark')" class="w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-b-lg">🌙 Dark</button>
-                    </div>
-                </div>
+                <!-- Theme Toggle -->
+                <button id="themeToggle" class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                    <span id="themeIcon" class="text-lg">🌙</span>
+                </button>
                 
                 <!-- User Section -->
                 {% if user.is_authenticated %}
                     
-                    <!-- ===== NOTIFICATION BELL ===== -->
+                    <!-- Notification Bell -->
                     <div class="relative">
                         <button id="notificationBtn" class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 relative">
                             <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -91,7 +83,7 @@
                                         <span class="text-sm">📁</span>
                                     </div>
                                     <div class="flex-1">
-                                        <p class="text-sm text-gray-700 dark:text-gray-300">Your project <span class="font-semibold">"AI Chatbot"</span> got a new star</p>
+                                        <p class="text-sm text-gray-700 dark:text-gray-300">Your project got a new star</p>
                                         <span class="text-xs text-gray-500">1 hour ago</span>
                                     </div>
                                 </div>
@@ -100,17 +92,16 @@
                                         <span class="text-sm">💼</span>
                                     </div>
                                     <div class="flex-1">
-                                        <p class="text-sm text-gray-700 dark:text-gray-300">New job matching your skills: <span class="font-semibold">Senior Developer</span></p>
+                                        <p class="text-sm text-gray-700 dark:text-gray-300">New job matching your skills</p>
                                         <span class="text-xs text-gray-500">3 hours ago</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="p-2 border-t border-gray-200 dark:border-gray-700 text-center">
-                                <a href="/notifications/" class="text-sm text-purple-600 hover:text-purple-700">View all notifications →</a>
+                                <a href="/notifications/" class="text-sm text-purple-600 hover:text-purple-700">View all →</a>
                             </div>
                         </div>
                     </div>
-                    <!-- ===== END OF NOTIFICATION BELL ===== -->
                     
                     <!-- User Avatar Dropdown -->
                     <div class="relative">
@@ -147,17 +138,49 @@
             </div>
         </div>
         
-        <!-- Desktop Navigation - Full Width, Centered -->
-        <nav class="hidden md:flex items-center justify-center gap-0.5 py-2 border-t border-gray-100 dark:border-gray-800 mt-1">
-            <a href="{% url 'core:home' %}" class="px-4 py-1.5 text-sm font-medium rounded-md transition-all {% if request.path == '/' %}bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}">Home</a>
-            <a href="{% url 'members:list' %}" class="px-4 py-1.5 text-sm font-medium rounded-md transition-all {% if '/members/' in request.path %}bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}">Members</a>
-            <a href="{% url 'projects:list' %}" class="px-4 py-1.5 text-sm font-medium rounded-md transition-all {% if '/projects/' in request.path %}bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}">Projects</a>
-            <a href="{% url 'core:services' %}" class="px-4 py-1.5 text-sm font-medium rounded-md transition-all {% if '/services/' in request.path %}bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}">Services</a>
-            <a href="{% url 'events:list' %}" class="px-4 py-1.5 text-sm font-medium rounded-md transition-all {% if '/events/' in request.path %}bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}">Events</a>
-            <a href="{% url 'jobs:list' %}" class="px-4 py-1.5 text-sm font-medium rounded-md transition-all {% if '/jobs/' in request.path %}bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}">Jobs</a>
-            <a href="{% url 'core:about' %}" class="px-4 py-1.5 text-sm font-medium rounded-md transition-all {% if '/about/' in request.path %}bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}">About</a>
-            <a href="{% url 'core:contact' %}" class="px-4 py-1.5 text-sm font-medium rounded-md transition-all {% if '/contact/' in request.path %}bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400{% else %}text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}">Contact</a>
-        </nav>
+       <nav class="hidden md:flex items-center justify-center gap-3 lg:gap-6 xl:gap-10 py-3 border-t border-gray-100 dark:border-gray-800 mt-2">
+    
+    <a href="{% url 'core:home' %}" 
+       class="nav-link px-3 lg:px-5 xl:px-6 {% if request.path == '/' %}nav-link-active{% endif %}">
+       Home
+    </a>
+
+    <a href="{% url 'members:list' %}" 
+       class="nav-link px-3 lg:px-5 xl:px-6 {% if '/members/' in request.path %}nav-link-active{% endif %}">
+       Members
+    </a>
+
+    <a href="{% url 'projects:list' %}" 
+       class="nav-link px-3 lg:px-5 xl:px-6 {% if '/projects/' in request.path %}nav-link-active{% endif %}">
+       Projects
+    </a>
+
+    <a href="{% url 'core:services' %}" 
+       class="nav-link px-3 lg:px-5 xl:px-6 {% if '/services/' in request.path %}nav-link-active{% endif %}">
+       Services
+    </a>
+
+    <a href="{% url 'events:list' %}" 
+       class="nav-link px-3 lg:px-5 xl:px-6 {% if '/events/' in request.path %}nav-link-active{% endif %}">
+       Events
+    </a>
+
+    <a href="{% url 'jobs:list' %}" 
+       class="nav-link px-3 lg:px-5 xl:px-6 {% if '/jobs/' in request.path %}nav-link-active{% endif %}">
+       Jobs
+    </a>
+
+    <a href="{% url 'core:about' %}" 
+       class="nav-link px-3 lg:px-5 xl:px-6 {% if '/about/' in request.path %}nav-link-active{% endif %}">
+       About
+    </a>
+
+    <a href="{% url 'core:contact' %}" 
+       class="nav-link px-3 lg:px-5 xl:px-6 {% if '/contact/' in request.path %}nav-link-active{% endif %}">
+       Contact
+    </a>
+
+</nav>
     </div>
 </header>
 
@@ -172,87 +195,32 @@
                    class="flex-1 px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                    autofocus>
             <button type="submit" class="px-4 py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700 font-medium">Search</button>
-            <button type="button" id="closeMobileSearch" class="p-3 text-gray-500 hover:text-gray-700">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
+            <button type="button" id="closeMobileSearch" class="p-3 text-gray-500 hover:text-gray-700">✕</button>
         </form>
     </div>
 </div>
 
 <!-- Mobile Menu -->
-<div id="mobileMenu" style="display: none;" class="fixed inset-x-0 top-[56px] bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-xl z-40 overflow-y-auto max-h-[calc(100vh-56px)]">
+<div id="mobileMenu" style="display: none;" class="fixed inset-x-0 top-[60px] bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-xl z-40 overflow-y-auto max-h-[calc(100vh-60px)]">
     <div class="py-4 px-4">
         <nav class="flex flex-col space-y-1">
-            <a href="{% url 'core:home' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">🏠 Home</a>
-            <a href="{% url 'members:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">👥 Members</a>
-            <a href="{% url 'projects:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">📁 Projects</a>
-            <a href="{% url 'core:services' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">⚙️ Services</a>
-            <a href="{% url 'events:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">📅 Events</a>
-            <a href="{% url 'jobs:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">💼 Jobs</a>
-            <a href="{% url 'core:about' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">ℹ️ About</a>
-            <a href="{% url 'core:contact' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 transition-all">📞 Contact</a>
+            <a href="{% url 'core:home' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">🏠 Home</a>
+            <a href="{% url 'members:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">👥 Members</a>
+            <a href="{% url 'projects:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">📁 Projects</a>
+            <a href="{% url 'core:services' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">⚙️ Services</a>
+            <a href="{% url 'events:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">📅 Events</a>
+            <a href="{% url 'jobs:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">💼 Jobs</a>
+            <a href="{% url 'core:about' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">ℹ️ About</a>
+            <a href="{% url 'core:contact' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">📞 Contact</a>
         </nav>
-        
         <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 flex gap-3">
             <a href="{% url 'accounts:login' %}" class="flex-1 text-center py-3 text-purple-600 font-medium text-base border border-purple-500 rounded-lg hover:bg-purple-50 transition-all">Sign in</a>
             <a href="{% url 'accounts:signup' %}" class="flex-1 text-center py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-medium text-base rounded-lg hover:shadow-md transition-all">Sign up</a>
         </div>
     </div>
 </div>
-
 <script>
-// Theme Dropdown
-const themeBtn = document.getElementById('themeDropdownBtn');
-const themeMenu = document.getElementById('themeDropdownMenu');
-
-if (themeBtn && themeMenu) {
-    themeBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        themeMenu.classList.toggle('hidden');
-    });
-}
-
-// User Dropdown
-const userBtn = document.getElementById('userDropdownBtn');
-const userMenu = document.getElementById('userDropdownMenu');
-
-if (userBtn && userMenu) {
-    userBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        userMenu.classList.toggle('hidden');
-    });
-}
-
-// ===== NOTIFICATION DROPDOWN =====
-const notificationBtn = document.getElementById('notificationBtn');
-const notificationDropdown = document.getElementById('notificationDropdown');
-const notificationCount = document.getElementById('notificationCount');
-
-if (notificationBtn && notificationDropdown) {
-    // Show badge with count (change '3' to actual count from backend)
-    if (notificationCount) {
-        notificationCount.classList.remove('hidden');
-        notificationCount.textContent = '3';
-    }
-    
-    notificationBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        notificationDropdown.classList.toggle('hidden');
-    });
-}
-
-// Close notification dropdown when clicking outside
-document.addEventListener('click', function(e) {
-    if (notificationDropdown && notificationBtn) {
-        if (!notificationDropdown.contains(e.target) && !notificationBtn.contains(e.target)) {
-            notificationDropdown.classList.add('hidden');
-        }
-    }
-});
-
-// Mobile Menu
+   // Mobile Menu - THIS WORKS
 const mobileBtn = document.getElementById('mobileMenuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 
@@ -286,250 +254,47 @@ document.addEventListener('click', function(e) {
             document.body.style.overflow = '';
         }
     }
+}); 
+const nav = document.getElementById('desktopNav');
+const indicator = document.getElementById('navIndicator');
+const links = nav.querySelectorAll('.nav-link');
+
+function moveIndicator(el) {
+    const rect = el.getBoundingClientRect();
+    const parentRect = nav.getBoundingClientRect();
+
+    indicator.style.width = rect.width + 'px';
+    indicator.style.left = (rect.left - parentRect.left) + 'px';
+}
+
+// Hover effect
+links.forEach(link => {
+    link.addEventListener('mouseenter', () => moveIndicator(link));
 });
 
-// Mobile Search Modal
-const mobileSearchBtn = document.getElementById('mobileSearchBtn');
-const mobileSearchModal = document.getElementById('mobileSearchModal');
-const closeMobileSearch = document.getElementById('closeMobileSearch');
-
-if (mobileSearchBtn && mobileSearchModal) {
-    mobileSearchBtn.addEventListener('click', () => {
-        mobileSearchModal.classList.remove('hidden');
-        setTimeout(() => {
-            const input = document.getElementById('mobileSearchInput');
-            if (input) input.focus();
-        }, 100);
-    });
+// Keep it on active link
+const activeLink = document.querySelector('.nav-link-active');
+if (activeLink) {
+    moveIndicator(activeLink);
 }
 
-if (closeMobileSearch && mobileSearchModal) {
-    closeMobileSearch.addEventListener('click', () => {
-        mobileSearchModal.classList.add('hidden');
-    });
-    
-    mobileSearchModal.addEventListener('click', (e) => {
-        if (e.target === mobileSearchModal) {
-            mobileSearchModal.classList.add('hidden');
-        }
-    });
-}
-
-// Close dropdowns when clicking outside
-document.addEventListener('click', function() {
-    if (themeMenu) themeMenu.classList.add('hidden');
-    if (userMenu) userMenu.classList.add('hidden');
+// Reset on leave
+nav.addEventListener('mouseleave', () => {
+    if (activeLink) moveIndicator(activeLink);
 });
 
-if (themeMenu) {
-    themeMenu.addEventListener('click', (e) => e.stopPropagation());
-}
-if (userMenu) {
-    userMenu.addEventListener('click', (e) => e.stopPropagation());
-}
-
-// Theme function - Light/Dark only
-function setTheme(theme) {
-    if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-    } else if (theme === 'light') {
-        document.documentElement.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-    }
-    if (themeMenu) themeMenu.classList.add('hidden');
-}
-
-// Load saved theme
-(function() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.documentElement.classList.add('dark');
-    } else if (savedTheme === 'light') {
-        document.documentElement.classList.remove('dark');
+// Fix on resize
+window.addEventListener('resize', () => {
+    if (activeLink) moveIndicator(activeLink);
+});
+// ========= GLASS BLUR ON SCROLL =========
+const mainHeader = document.getElementById('mainHeader');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+        mainHeader.classList.add('header-scrolled');
     } else {
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark');
-        }
-    }
-})();
-
-// Search suggestions
-const searchInput = document.getElementById('searchInput');
-const suggestionsContainer = document.getElementById('searchSuggestions');
-let suggestionTimeout;
-
-if (searchInput && suggestionsContainer) {
-    searchInput.addEventListener('input', function() {
-        clearTimeout(suggestionTimeout);
-        const query = this.value.trim();
-        
-        if (query.length < 2) {
-            suggestionsContainer.classList.add('hidden');
-            return;
-        }
-        
-        suggestionTimeout = setTimeout(() => {
-            const mockSuggestions = [
-                { name: query + ' developers', type: 'members', url: '/members/?q=' + encodeURIComponent(query) },
-                { name: query + ' projects', type: 'projects', url: '/projects/?q=' + encodeURIComponent(query) },
-                { name: query + ' jobs', type: 'jobs', url: '/jobs/?q=' + encodeURIComponent(query) },
-            ];
-            
-            suggestionsContainer.innerHTML = mockSuggestions.map(item => `
-                <a href="${item.url}" class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b border-gray-100 dark:border-gray-700 last:border-0">
-                    <div class="w-6 h-6 rounded-full bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center text-white text-xs">
-                        ${item.type === 'members' ? '👥' : item.type === 'projects' ? '📁' : '💼'}
-                    </div>
-                    <div>
-                        <div class="text-sm font-medium text-gray-900 dark:text-white">${item.name}</div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400 capitalize">${item.type}</div>
-                    </div>
-                </a>
-            `).join('');
-            suggestionsContainer.classList.remove('hidden');
-        }, 300);
-    });
-    
-    document.addEventListener('click', function(e) {
-        if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
-            suggestionsContainer.classList.add('hidden');
-        }
-    });
-}
-
-// Keyboard shortcut
-document.addEventListener('keydown', function(e) {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-        e.preventDefault();
-        if (searchInput) {
-            searchInput.focus();
-            searchInput.select();
-        }
+        mainHeader.classList.remove('header-scrolled');
     }
 });
-
-// ===== STICKY HEADER SHRINK EFFECT =====
-let lastScrollTop = 0;
-const header = document.querySelector('header');
-const headerTopRow = document.querySelector('.flex.items-center.justify-between.gap-2.py-2.md\\:py-3');
-
-if (header) {
-    window.addEventListener('scroll', function() {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > 80) {
-            // Scrolled down - shrink header
-            header.style.paddingTop = '0.25rem';
-            header.style.paddingBottom = '0.25rem';
-            if (headerTopRow) {
-                headerTopRow.style.paddingTop = '0.25rem';
-                headerTopRow.style.paddingBottom = '0.25rem';
-            }
-        } else {
-            // At top - normal size
-            header.style.paddingTop = '';
-            header.style.paddingBottom = '';
-            if (headerTopRow) {
-                headerTopRow.style.paddingTop = '';
-                headerTopRow.style.paddingBottom = '';
-            }
-        }
-        lastScrollTop = scrollTop;
-    });
-}
 </script>
 
-<style>
-    .scrollbar-hide::-webkit-scrollbar {
-        display: none;
-    }
-    .scrollbar-hide {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-    #mobileSearchModal.hidden {
-        display: none;
-    }
-    body {
-        overflow-x: hidden;
-    }
-    /* Show tagline on screens above 400px */
-    @media (min-width: 400px) {
-        .xs\:block {
-            display: block;
-        }
-    }
-    .whitespace-nowrap {
-        white-space: nowrap;
-    }
-    /* ===== PROFESSIONAL ADDITIONS ===== */
-    
-    /* 1. Sticky Header Transition */
-    .header-shrink {
-        padding-top: 0.25rem !important;
-        padding-bottom: 0.25rem !important;
-        transition: all 0.3s ease;
-    }
-    
-    header {
-        transition: all 0.3s ease;
-    }
-    
-    /* 2. Active Page Underline Effect */
-    .nav-link-active {
-        position: relative;
-    }
-    
-    .nav-link-active::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 4px;
-        height: 3px;
-        background: linear-gradient(90deg, #a855f7, #8b5cf6);
-        border-radius: 2px;
-        animation: expandWidth 0.3s ease-out forwards;
-    }
-    
-    @keyframes expandWidth {
-        from {
-            width: 4px;
-            opacity: 0.5;
-        }
-        to {
-            width: 20px;
-            opacity: 1;
-        }
-    }
-    
-    /* 3. Notification Badge Pulse Animation */
-    @keyframes pulse {
-        0%, 100% {
-            transform: scale(1);
-            opacity: 1;
-        }
-        50% {
-            transform: scale(1.3);
-            opacity: 0.7;
-        }
-    }
-    
-    .notification-pulse {
-        animation: pulse 2s infinite;
-    }
-    
-    /* 4. Smooth Dropdown Animation */
-    .dropdown-menu {
-        transition: all 0.2s ease;
-        transform-origin: top right;
-    }
-    
-    .dropdown-menu.show {
-        opacity: 1;
-        visibility: visible;
-        transform: scale(1);
-    }
-</style>
