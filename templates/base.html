@@ -60,7 +60,12 @@
         {% block content %}{% endblock %}
     </main>
     
-    <!-- ONLY ONE SCRIPT - header.js handles everything -->
-    <script src="{% static 'js/header.js' %}"></script>
+    <!--js handles everything -->
+    
+    <script src="{% static 'js/theme.js' %}"></script>
+    <script src="{% static 'js/dropdowns.js' %}"></script>
+    <script src="{% static 'js/mobile.js' %}"></script>
+    <script src="{% static 'js/search.js' %}"></script>
+    <!--<script src="{% static 'js/header.js' %}"></script> -->
 </body>
 </html>

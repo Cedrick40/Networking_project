@@ -139,48 +139,15 @@
         </div>
         
        <nav class="hidden md:flex items-center justify-center gap-3 lg:gap-6 xl:gap-10 py-3 border-t border-gray-100 dark:border-gray-800 mt-2">
-    
-    <a href="{% url 'core:home' %}" 
-       class="nav-link px-3 lg:px-5 xl:px-6 {% if request.path == '/' %}nav-link-active{% endif %}">
-       Home
-    </a>
-
-    <a href="{% url 'members:list' %}" 
-       class="nav-link px-3 lg:px-5 xl:px-6 {% if '/members/' in request.path %}nav-link-active{% endif %}">
-       Members
-    </a>
-
-    <a href="{% url 'projects:list' %}" 
-       class="nav-link px-3 lg:px-5 xl:px-6 {% if '/projects/' in request.path %}nav-link-active{% endif %}">
-       Projects
-    </a>
-
-    <a href="{% url 'core:services' %}" 
-       class="nav-link px-3 lg:px-5 xl:px-6 {% if '/services/' in request.path %}nav-link-active{% endif %}">
-       Services
-    </a>
-
-    <a href="{% url 'events:list' %}" 
-       class="nav-link px-3 lg:px-5 xl:px-6 {% if '/events/' in request.path %}nav-link-active{% endif %}">
-       Events
-    </a>
-
-    <a href="{% url 'jobs:list' %}" 
-       class="nav-link px-3 lg:px-5 xl:px-6 {% if '/jobs/' in request.path %}nav-link-active{% endif %}">
-       Jobs
-    </a>
-
-    <a href="{% url 'core:about' %}" 
-       class="nav-link px-3 lg:px-5 xl:px-6 {% if '/about/' in request.path %}nav-link-active{% endif %}">
-       About
-    </a>
-
-    <a href="{% url 'core:contact' %}" 
-       class="nav-link px-3 lg:px-5 xl:px-6 {% if '/contact/' in request.path %}nav-link-active{% endif %}">
-       Contact
-    </a>
-
-</nav>
+            <a href="{% url 'core:home' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if request.path == '/' %}nav-link-active{% endif %}">Home</a>
+            <a href="{% url 'members:list' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/members/' in request.path %}nav-link-active{% endif %}">Members</a>
+            <a href="{% url 'projects:list' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/projects/' in request.path %}nav-link-active{% endif %}">Projects</a>
+            <a href="{% url 'core:services' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/services/' in request.path %}nav-link-active{% endif %}">Services</a>
+            <a href="{% url 'events:list' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/events/' in request.path %}nav-link-active{% endif %}">Events</a>
+            <a href="{% url 'jobs:list' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/jobs/' in request.path %}nav-link-active{% endif %}">Jobs</a>
+            <a href="{% url 'core:about' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/about/' in request.path %}nav-link-active{% endif %}">About</a>
+            <a href="{% url 'core:contact' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/contact/' in request.path %}nav-link-active{% endif %}">Contact Us</a>
+        </nav>
     </div>
 </header>
 
@@ -211,7 +178,7 @@
             <a href="{% url 'events:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">📅 Events</a>
             <a href="{% url 'jobs:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">💼 Jobs</a>
             <a href="{% url 'core:about' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">ℹ️ About</a>
-            <a href="{% url 'core:contact' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">📞 Contact</a>
+            <a href="{% url 'core:contact' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">📞 Contact Us</a>
         </nav>
         <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 flex gap-3">
             <a href="{% url 'accounts:login' %}" class="flex-1 text-center py-3 text-purple-600 font-medium text-base border border-purple-500 rounded-lg hover:bg-purple-50 transition-all">Sign in</a>
@@ -219,82 +186,4 @@
         </div>
     </div>
 </div>
-<script>
-   // Mobile Menu - THIS WORKS
-const mobileBtn = document.getElementById('mobileMenuBtn');
-const mobileMenu = document.getElementById('mobileMenu');
-
-if (mobileBtn && mobileMenu) {
-    mobileBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
-            mobileMenu.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        } else {
-            mobileMenu.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-    });
-    
-    const menuLinks = mobileMenu.querySelectorAll('a');
-    menuLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            mobileMenu.style.display = 'none';
-            document.body.style.overflow = '';
-        });
-    });
-}
-
-document.addEventListener('click', function(e) {
-    if (mobileMenu && mobileBtn && mobileMenu.style.display === 'block') {
-        if (!mobileMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
-            mobileMenu.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-    }
-}); 
-const nav = document.getElementById('desktopNav');
-const indicator = document.getElementById('navIndicator');
-const links = nav.querySelectorAll('.nav-link');
-
-function moveIndicator(el) {
-    const rect = el.getBoundingClientRect();
-    const parentRect = nav.getBoundingClientRect();
-
-    indicator.style.width = rect.width + 'px';
-    indicator.style.left = (rect.left - parentRect.left) + 'px';
-}
-
-// Hover effect
-links.forEach(link => {
-    link.addEventListener('mouseenter', () => moveIndicator(link));
-});
-
-// Keep it on active link
-const activeLink = document.querySelector('.nav-link-active');
-if (activeLink) {
-    moveIndicator(activeLink);
-}
-
-// Reset on leave
-nav.addEventListener('mouseleave', () => {
-    if (activeLink) moveIndicator(activeLink);
-});
-
-// Fix on resize
-window.addEventListener('resize', () => {
-    if (activeLink) moveIndicator(activeLink);
-});
-// ========= GLASS BLUR ON SCROLL =========
-const mainHeader = document.getElementById('mainHeader');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 20) {
-        mainHeader.classList.add('header-scrolled');
-    } else {
-        mainHeader.classList.remove('header-scrolled');
-    }
-});
-</script>
 
