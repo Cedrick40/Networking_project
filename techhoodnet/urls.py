@@ -30,6 +30,7 @@ urlpatterns = [
     path('projects/', include('apps.projects.urls')),
     path('events/', include('apps.events.urls')),
     path('jobs/', include('apps.jobs.urls')),
+    path('feed/', include('apps.posts.urls')),
 ]
 
 if settings.DEBUG:

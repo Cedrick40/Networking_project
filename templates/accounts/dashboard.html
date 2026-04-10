@@ -1,0 +1,407 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="bg-gray-900 min-h-screen">
+    
+    <!-- Hero Gradient Header -->
+    <div class="relative overflow-hidden rounded-2xl shadow-xl mb-8">
+        <div class="bg-gradient-to-r from-purple-600 via-purple-500 to-indigo-600 p-6 md:p-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-4xl">🎉</span>
+                        <h2 class="text-2xl md:text-3xl font-bold text-white">
+                            Hey {{ user.username }}!
+                        </h2>
+                    </div>
+                    <p class="text-purple-100 text-base md:text-lg font-medium">
+                        Your tech journey continues here
+                    </p>
+                    <div class="flex items-center gap-3 mt-2">
+                        <span class="inline-flex items-center gap-1 text-xs text-purple-200">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>
+                            Live Feed Active
+                        </span>
+                        <span class="text-purple-300 text-xs">|</span>
+                        <span class="text-xs text-purple-200">✨ {{ user.profile_views }} profile views</span>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <button id="createPostBtn" class="px-5 py-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white hover:bg-white/30 transition-all text-sm font-medium">
+                        📝 Create Post
+                    </button>
+                    <a href="{% url 'accounts:edit_profile' %}" class="px-5 py-2 bg-white text-purple-700 rounded-full hover:bg-gray-100 transition-all text-sm font-medium shadow-md">
+                        ⚙️ Edit Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container mx-auto px-4 py-8">
+        
+        <!-- Messages -->
+        {% if messages %}
+            {% for message in messages %}
+            <div class="mb-6 p-4 rounded-xl backdrop-blur-sm flex items-center justify-between {% if message.tags == 'success' %}bg-green-500/20 border border-green-500/30 text-green-300{% elif message.tags == 'error' %}bg-red-500/20 border border-red-500/30 text-red-300{% else %}bg-blue-500/20 border border-blue-500/30 text-blue-300{% endif %} messages-fade-in">
+                <span>{{ message }}</span>
+                <button class="close-message text-gray-400 hover:text-white transition ml-3">✕</button>
+            </div>
+            {% endfor %}
+        {% endif %}
+        
+        <!-- Stats Grid with Links -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <a href="{% url 'accounts:profile' %}" class="stat-card bg-gradient-to-br from-purple-500/20 to-purple-600/20 backdrop-blur-sm rounded-2xl p-5 border border-purple-500/30 transition-all duration-300 hover:scale-105 block">
+                <div class="text-3xl mb-2">👁️</div>
+                <div class="text-2xl font-bold text-white">{{ user.profile_views }}</div>
+                <div class="text-sm text-purple-300">Profile Views</div>
+            </a>
+            <a href="#" class="stat-card bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-sm rounded-2xl p-5 border border-blue-500/30 transition-all duration-300 hover:scale-105 block">
+                <div class="text-3xl mb-2">📁</div>
+                <div class="text-2xl font-bold text-white">0</div>
+                <div class="text-sm text-blue-300">Projects</div>
+            </a>
+            <a href="{% url 'members:list' %}" class="stat-card bg-gradient-to-br from-green-500/20 to-green-600/20 backdrop-blur-sm rounded-2xl p-5 border border-green-500/30 transition-all duration-300 hover:scale-105 block">
+                <div class="text-3xl mb-2">🤝</div>
+                <div class="text-2xl font-bold text-white">0</div>
+                <div class="text-sm text-green-300">Connections</div>
+            </a>
+            <a href="{% url 'accounts:edit_profile' %}" class="stat-card bg-gradient-to-br from-orange-500/20 to-orange-600/20 backdrop-blur-sm rounded-2xl p-5 border border-orange-500/30 transition-all duration-300 hover:scale-105 block">
+                <div class="text-3xl mb-2">📊</div>
+                <div class="text-2xl font-bold text-white">{{ user.profile_completion_percentage }}%</div>
+                <div class="text-sm text-orange-300">Complete Profile</div>
+            </a>
+        </div>
+        
+        <!-- Main 2-Column Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- LEFT COLUMN -->
+            <div class="space-y-6">
+                
+                <!-- Create Post Card -->
+                <div class="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-gray-700 shadow-xl">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                        <div class="flex-shrink-0">
+                            {% if user.avatar %}
+                                <img src="{{ user.avatar.url }}" alt="{{ user.username }}" class="w-12 h-12 rounded-full object-cover border-2 border-purple-500">
+                            {% else %}
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg">
+                                    {{ user.username|make_list|first|upper }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <form action="{% url 'posts:create' %}" method="post" class="flex-1 w-full">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="accounts:dashboard">
+                            <div class="flex flex-col sm:flex-row gap-2">
+                                <input type="text" name="content" id="postInput" placeholder="What's on your mind? Share an update, project, or idea..." 
+                                       class="flex-1 px-5 py-3 bg-gray-700/50 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all">
+                                <button type="submit" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-full hover:from-purple-600 hover:to-purple-700 transition-all duration-300 font-medium shadow-lg">
+                                    📤 Post
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="flex gap-4 mt-3 pt-2 border-t border-gray-700/50">
+                        <button class="focus-post-input flex items-center gap-2 text-xs text-gray-400 hover:text-purple-400 transition">
+                            <span>📷</span> Photo
+                        </button>
+                        <button class="focus-post-input flex items-center gap-2 text-xs text-gray-400 hover:text-purple-400 transition">
+                            <span>🔗</span> Link
+                        </button>
+                        <button class="focus-post-input flex items-center gap-2 text-xs text-gray-400 hover:text-purple-400 transition">
+                            <span>#️⃣</span> Hashtag
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Live Activity Feed -->
+                <div class="bg-gray-800/30 backdrop-blur-sm rounded-2xl border border-gray-700 overflow-hidden">
+                    <div class="px-5 py-4 border-b border-gray-700 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white">📡 Live Activity Feed</h3>
+                            <p class="text-xs text-gray-400">Real-time updates from your network</p>
+                        </div>
+                        <div class="flex gap-1">
+                            <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                            <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse pulse-delay-1"></div>
+                            <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse pulse-delay-2"></div>
+                        </div>
+                    </div>
+                    <div id="liveFeed" class="h-80 overflow-y-auto">
+                        {% for post in posts|slice:":5" %}
+                        <div class="feed-item p-4 border-b border-gray-700/50 hover:bg-gray-700/30 transition-all duration-200" data-post-id="{{ post.id }}">
+                            <div class="flex items-start gap-3">
+                                <div class="flex-shrink-0">
+                                    {% if post.author.avatar %}
+                                        <img src="{{ post.author.avatar.url }}" alt="{{ post.author.username }}" class="w-10 h-10 rounded-full object-cover">
+                                    {% else %}
+                                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center text-white font-bold">
+                                            {{ post.author.username|make_list|first|upper }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between flex-wrap gap-2">
+                                        <div class="flex items-center gap-2 flex-wrap">
+                                            <span class="font-semibold text-white">{{ post.author.get_full_name|default:post.author.username }}</span>
+                                            <span class="text-xs text-gray-500">{{ post.created_at|timesince }} ago</span>
+                                        </div>
+                                        {% if post.author == user %}
+                                        <div class="relative">
+                                            <button class="post-menu-btn text-gray-400 hover:text-purple-400 transition" data-post-id="{{ post.id }}">
+                                                ⋮
+                                            </button>
+                                            <div id="post-menu-{{ post.id }}" class="hidden absolute right-0 mt-2 w-32 bg-gray-800 rounded-lg shadow-lg border border-gray-700 z-10">
+                                                <button class="edit-post-btn block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 transition" data-post-id="{{ post.id }}">✏️ Edit</button>
+                                                <button class="delete-post-btn block w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-gray-700 transition" data-post-id="{{ post.id }}">🗑️ Delete</button>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <p class="text-gray-300 text-sm mt-1">{{ post.content }}</p>
+                                    
+                                    <!-- Like and Comment Buttons -->
+                                    <div class="flex gap-4 mt-3">
+                                        <button class="like-post-btn flex items-center gap-1 text-xs text-gray-400 hover:text-purple-400 transition" data-post-id="{{ post.id }}">
+                                            ❤️ <span class="likes-count" data-post-id="{{ post.id }}">{{ post.likes.count }}</span>
+                                        </button>
+                                        <button class="toggle-comments-btn flex items-center gap-1 text-xs text-gray-400 hover:text-purple-400 transition" data-post-id="{{ post.id }}">
+                                            💬 <span class="comments-count" data-post-id="{{ post.id }}">{{ post.comments.count }}</span>
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Comments Section -->
+                                    <div id="comments-section-{{ post.id }}" class="comments-section hidden mt-3 pt-3 border-t border-gray-700">
+                                        <!-- Comment Form -->
+                                        <div class="flex gap-2 mb-3">
+                                            {% if user.avatar %}
+                                                <img src="{{ user.avatar.url }}" alt="{{ user.username }}" class="w-6 h-6 rounded-full object-cover">
+                                            {% else %}
+                                                <div class="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs">
+                                                    {{ user.username|make_list|first|upper }}
+                                                </div>
+                                            {% endif %}
+                                            <form action="{% url 'posts:comment' post.id %}" method="post" class="flex-1 flex gap-2">
+                                                {% csrf_token %}
+                                                <input type="text" name="content" placeholder="Write a comment..." 
+                                                       class="flex-1 px-3 py-1 text-sm bg-gray-700 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-purple-500">
+                                                <button type="submit" class="px-3 py-1 text-xs bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">Post</button>
+                                            </form>
+                                        </div>
+                                        
+                                        <!-- Comments List -->
+                                        <div class="comments-list space-y-2 max-h-40 overflow-y-auto">
+                                            {% for comment in post.comments.all|slice:":5" %}
+                                            <div class="flex gap-2 text-sm">
+                                                <span class="font-medium text-purple-400 text-xs">{{ comment.author.username }}</span>
+                                                <span class="text-gray-400 text-xs">{{ comment.content }}</span>
+                                                <span class="text-gray-600 text-xs">{{ comment.created_at|timesince }} ago</span>
+                                            </div>
+                                            {% empty %}
+                                            <p class="text-gray-500 text-xs">No comments yet. Be the first!</p>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="p-8 text-center text-gray-500">
+                            <div class="text-4xl mb-2">📭</div>
+                            <p>No activity yet</p>
+                            <p class="text-sm mt-1">Be the first to post something!</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RIGHT COLUMN -->
+            <div class="space-y-6">
+                
+                <!-- Spotlight Carousel -->
+                <div class="relative overflow-hidden rounded-2xl shadow-xl" style="min-height: 280px;">
+                    <div id="spotlightCarousel" class="relative w-full h-full">
+                        <div class="spotlight-slide absolute inset-0 transition-all duration-700 opacity-100">
+                            <div class="bg-gradient-to-br from-purple-600 to-indigo-700 p-6 h-full flex flex-col">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="text-4xl">🌟</span>
+                                    <span class="text-xs px-2 py-1 bg-white/20 rounded-full">Featured</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-white mb-2">Project Spotlight</h3>
+                                <p class="text-purple-200 text-sm mb-4">"This project is amazing! The best collaboration I've ever had."</p>
+                                <div class="mt-auto">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">👤</div>
+                                        <div>
+                                            <p class="text-white font-medium text-sm">Sarah Johnson</p>
+                                            <p class="text-purple-300 text-xs">Senior Developer</p>
+                                        </div>
+                                    </div>
+                                    <button class="px-4 py-2 bg-white/20 rounded-full text-white text-sm hover:bg-white/30 transition">View Project →</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spotlight-slide absolute inset-0 transition-all duration-700 opacity-0 translate-x-full">
+                            <div class="bg-gradient-to-br from-blue-600 to-cyan-700 p-6 h-full flex flex-col">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="text-4xl">🚀</span>
+                                    <span class="text-xs px-2 py-1 bg-white/20 rounded-full">Trending</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-white mb-2">Trending Now</h3>
+                                <p class="text-blue-200 text-sm mb-4">AI Image Generator is taking off! Join the conversation.</p>
+                                <div class="mt-auto">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">⭐</div>
+                                        <div>
+                                            <p class="text-white font-medium text-sm">1,234 views today</p>
+                                            <p class="text-blue-300 text-xs">+45% from yesterday</p>
+                                        </div>
+                                    </div>
+                                    <button class="px-4 py-2 bg-white/20 rounded-full text-white text-sm hover:bg-white/30 transition">Explore →</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spotlight-slide absolute inset-0 transition-all duration-700 opacity-0 translate-x-full">
+                            <div class="bg-gradient-to-br from-green-600 to-emerald-700 p-6 h-full flex flex-col">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="text-4xl">💡</span>
+                                    <span class="text-xs px-2 py-1 bg-white/20 rounded-full">Tip</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-white mb-2">Pro Tip</h3>
+                                <p class="text-green-200 text-sm mb-4">Complete your profile to get discovered by recruiters!</p>
+                                <div class="mt-auto">
+                                    <div class="w-full bg-white/20 rounded-full h-2 mb-2">
+                                        <div class="bg-green-400 h-2 rounded-full progress-bar" data-completion="{{ user.profile_completion_percentage }}"></div>
+                                    </div>
+                                    <p class="text-green-300 text-sm">{{ user.profile_completion_percentage }}% Complete</p>
+                                    <a href="{% url 'accounts:edit_profile' %}" class="inline-block mt-3 px-4 py-2 bg-white/20 rounded-full text-white text-sm hover:bg-white/30 transition">Complete Profile →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
+                        <button class="spotlight-dot w-2 h-2 rounded-full bg-white transition-all" data-spotlight="0"></button>
+                        <button class="spotlight-dot w-2 h-2 rounded-full bg-white/40 transition-all" data-spotlight="1"></button>
+                        <button class="spotlight-dot w-2 h-2 rounded-full bg-white/40 transition-all" data-spotlight="2"></button>
+                    </div>
+                </div>
+                
+                <!-- Quick Action Links -->
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="{% url 'members:list' %}" class="flex items-center gap-2 px-4 py-3 bg-gray-800/30 backdrop-blur-sm rounded-xl border border-gray-700 hover:border-purple-500/50 hover:bg-gray-700/30 transition-all duration-300">
+                        <span class="text-xl">👥</span>
+                        <div>
+                            <p class="text-sm font-medium text-white">Find Members</p>
+                            <p class="text-xs text-gray-400">Connect with peers</p>
+                        </div>
+                    </a>
+                    <a href="#" class="flex items-center gap-2 px-4 py-3 bg-gray-800/30 backdrop-blur-sm rounded-xl border border-gray-700 hover:border-purple-500/50 hover:bg-gray-700/30 transition-all duration-300">
+                        <span class="text-xl">📁</span>
+                        <div>
+                            <p class="text-sm font-medium text-white">Create Project</p>
+                            <p class="text-xs text-gray-400">Showcase your work</p>
+                        </div>
+                    </a>
+                    <a href="#" class="flex items-center gap-2 px-4 py-3 bg-gray-800/30 backdrop-blur-sm rounded-xl border border-gray-700 hover:border-purple-500/50 hover:bg-gray-700/30 transition-all duration-300">
+                        <span class="text-xl">💼</span>
+                        <div>
+                            <p class="text-sm font-medium text-white">Find Jobs</p>
+                            <p class="text-xs text-gray-400">Explore opportunities</p>
+                        </div>
+                    </a>
+                    <a href="{% url 'accounts:edit_profile' %}" class="flex items-center gap-2 px-4 py-3 bg-gray-800/30 backdrop-blur-sm rounded-xl border border-gray-700 hover:border-purple-500/50 hover:bg-gray-700/30 transition-all duration-300">
+                        <span class="text-xl">✏️</span>
+                        <div>
+                            <p class="text-sm font-medium text-white">Edit Profile</p>
+                            <p class="text-xs text-gray-400">Update your info</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Skills Card -->
+                <div class="bg-gray-800/30 backdrop-blur-sm rounded-2xl p-5 border border-gray-700">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-semibold text-white">🎯 Your Skills Pulse</h3>
+                        <a href="{% url 'accounts:edit_profile' %}#skills" class="text-xs text-purple-400 hover:text-purple-300 transition flex items-center gap-1">
+                            <span>+</span> Add Skill
+                        </a>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        {% if user.get_skills_list %}
+                            {% for skill in user.get_skills_list|slice:":6" %}
+                                <span class="skill-tag px-3 py-1 bg-purple-500/20 text-purple-300 text-sm rounded-full border border-purple-500/30">
+                                    {{ skill }}
+                                </span>
+                            {% endfor %}
+                            {% if user.get_skills_list|length > 6 %}
+                                <a href="{% url 'accounts:edit_profile' %}#skills" class="px-3 py-1 text-purple-400 text-sm rounded-full hover:bg-purple-500/20 transition">
+                                    +{{ user.get_skills_list|length|add:"-6" }} more
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            <span class="text-gray-500 text-sm">No skills added yet.</span>
+                            <a href="{% url 'accounts:edit_profile' %}#skills" class="text-purple-400 text-sm hover:underline">Add your first skill →</a>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Profile Completion Tips -->
+                <div class="bg-gray-800/30 backdrop-blur-sm rounded-2xl p-5 border border-gray-700">
+                    <h3 class="font-semibold text-white mb-3">📋 Profile Completion Tips</h3>
+                    {% if user.profile_completion_percentage < 100 %}
+                        <div class="space-y-2">
+                            {% if not user.bio %}
+                            <a href="{% url 'accounts:edit_profile' %}#bio" class="flex items-center justify-between p-2 bg-gray-700/30 rounded-lg hover:bg-gray-700/50 transition group">
+                                <span class="text-sm text-gray-400 group-hover:text-white">Add a bio</span>
+                                <span class="text-xs text-purple-400">Add →</span>
+                            </a>
+                            {% endif %}
+                            {% if not user.skills %}
+                            <a href="{% url 'accounts:edit_profile' %}#skills" class="flex items-center justify-between p-2 bg-gray-700/30 rounded-lg hover:bg-gray-700/50 transition group">
+                                <span class="text-sm text-gray-400 group-hover:text-white">Add your skills</span>
+                                <span class="text-xs text-purple-400">Add →</span>
+                            </a>
+                            {% endif %}
+                            {% if not user.avatar %}
+                            <a href="{% url 'accounts:edit_profile' %}#avatar" class="flex items-center justify-between p-2 bg-gray-700/30 rounded-lg hover:bg-gray-700/50 transition group">
+                                <span class="text-sm text-gray-400 group-hover:text-white">Upload profile picture</span>
+                                <span class="text-xs text-purple-400">Add →</span>
+                            </a>
+                            {% endif %}
+                            {% if not user.job_title %}
+                            <a href="{% url 'accounts:edit_profile' %}#job_title" class="flex items-center justify-between p-2 bg-gray-700/30 rounded-lg hover:bg-gray-700/50 transition group">
+                                <span class="text-sm text-gray-400 group-hover:text-white">Add job title</span>
+                                <span class="text-xs text-purple-400">Add →</span>
+                            </a>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <p class="text-sm text-green-400">🎉 Perfect! Your profile is complete.</p>
+                    {% endif %}
+                </div>
+                
+                <!-- New Members Wave -->
+                <div class="bg-gradient-to-r from-purple-500/10 to-pink-500/10 backdrop-blur-sm rounded-2xl p-5 border border-purple-500/30">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-semibold text-white">🌟 New Wave Members</h3>
+                        <span class="text-xs text-purple-300 animate-pulse">● Live</span>
+                    </div>
+                    <div class="flex -space-x-2">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center text-white text-sm border-2 border-gray-900">SJ</div>
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white text-sm border-2 border-gray-900">MC</div>
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center text-white text-sm border-2 border-gray-900">ER</div>
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 flex items-center justify-center text-white text-sm border-2 border-gray-900">+3</div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-3">12 new members joined this week</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'includes/welcome_modal.html' %}
+{% endblock %}

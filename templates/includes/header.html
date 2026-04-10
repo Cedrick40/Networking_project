@@ -5,8 +5,8 @@
         <!-- Top Row: Logo + Search + Actions -->
         <div id="headerTop" class="flex items-center justify-between gap-3 py-3">
             
-            <!-- Logo -->
-            <a href="{% url 'core:home' %}" class="flex items-center gap-2 flex-shrink-0 group">
+            <!-- Logo - Redirects to Dashboard if logged in, otherwise Home -->
+            <a href="{% if user.is_authenticated %}{% url 'accounts:dashboard' %}{% else %}{% url 'core:home' %}{% endif %}" class="flex items-center gap-2 flex-shrink-0 group">
                 <img src="{% static 'images/logo/techhoodnet-logo.png' %}" 
                      alt="TechHoodNet"
                      class="h-9 w-9 sm:h-10 sm:w-10 object-contain transition-transform duration-300 group-hover:scale-105">
@@ -117,9 +117,9 @@
                         </button>
                         
                         <div id="userDropdownMenu" class="absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hidden z-50">
-                            <a href="/profile/" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-t-lg">👤 Profile</a>
-                            <a href="/dashboard/" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">📊 Dashboard</a>
-                            <a href="/settings/" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">⚙️ Settings</a>
+                            <a href="{% url 'accounts:profile' %}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-t-lg">👤 Profile</a>
+                            <a href="{% url 'accounts:dashboard' %}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">📊 Dashboard</a>
+                            <a href="{% url 'accounts:settings' %}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">⚙️ Settings</a>
                             <hr class="my-1 border-gray-200 dark:border-gray-700">
                             <a href="{% url 'accounts:logout' %}" class="block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-b-lg">🚪 Sign Out</a>
                         </div>
@@ -138,15 +138,25 @@
             </div>
         </div>
         
-       <nav class="hidden md:flex items-center justify-center gap-3 lg:gap-6 xl:gap-10 py-3 border-t border-gray-100 dark:border-gray-800 mt-2">
-            <a href="{% url 'core:home' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if request.path == '/' %}nav-link-active{% endif %}">Home</a>
-            <a href="{% url 'members:list' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/members/' in request.path %}nav-link-active{% endif %}">Members</a>
-            <a href="{% url 'projects:list' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/projects/' in request.path %}nav-link-active{% endif %}">Projects</a>
-            <a href="{% url 'core:services' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/services/' in request.path %}nav-link-active{% endif %}">Services</a>
-            <a href="{% url 'events:list' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/events/' in request.path %}nav-link-active{% endif %}">Events</a>
-            <a href="{% url 'jobs:list' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/jobs/' in request.path %}nav-link-active{% endif %}">Jobs</a>
-            <a href="{% url 'core:about' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/about/' in request.path %}nav-link-active{% endif %}">About</a>
-            <a href="{% url 'core:contact' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/contact/' in request.path %}nav-link-active{% endif %}">Contact Us</a>
+        <!-- Desktop Navigation - Shows different navigation for logged in users -->
+        <nav class="hidden md:flex items-center justify-center gap-3 lg:gap-6 xl:gap-10 py-3 border-t border-gray-100 dark:border-gray-800 mt-2">
+            {% if user.is_authenticated %}
+                <!-- LOGGED IN MODE: Simplified navigation for all pages -->
+                <a href="{% url 'accounts:dashboard' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/dashboard/' in request.path %}nav-link-active{% endif %}">Dashboard</a>
+                <a href="{% url 'members:list' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/members/' in request.path %}nav-link-active{% endif %}">Network</a>
+                <a href="{% url 'projects:list' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/projects/' in request.path %}nav-link-active{% endif %}">Projects</a>
+                <a href="{% url 'jobs:list' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/jobs/' in request.path %}nav-link-active{% endif %}">Jobs</a>
+            {% else %}
+                <!-- PUBLIC MODE: Full navigation -->
+                <a href="{% url 'core:home' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if request.path == '/' %}nav-link-active{% endif %}">Home</a>
+                <a href="{% url 'members:list' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/members/' in request.path %}nav-link-active{% endif %}">Members</a>
+                <a href="{% url 'projects:list' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/projects/' in request.path %}nav-link-active{% endif %}">Projects</a>
+                <a href="{% url 'core:services' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/services/' in request.path %}nav-link-active{% endif %}">Services</a>
+                <a href="{% url 'events:list' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/events/' in request.path %}nav-link-active{% endif %}">Events</a>
+                <a href="{% url 'jobs:list' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/jobs/' in request.path %}nav-link-active{% endif %}">Jobs</a>
+                <a href="{% url 'core:about' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/about/' in request.path %}nav-link-active{% endif %}">About</a>
+                <a href="{% url 'core:contact' %}" class="nav-link px-3 lg:px-5 xl:px-6 {% if '/contact/' in request.path %}nav-link-active{% endif %}">Contact Us</a>
+            {% endif %}
         </nav>
     </div>
 </header>
@@ -167,23 +177,36 @@
     </div>
 </div>
 
-<!-- Mobile Menu -->
+<!-- Mobile Menu - Updated -->
 <div id="mobileMenu" style="display: none;" class="fixed inset-x-0 top-[60px] bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-xl z-40 overflow-y-auto max-h-[calc(100vh-60px)]">
     <div class="py-4 px-4">
         <nav class="flex flex-col space-y-1">
-            <a href="{% url 'core:home' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">🏠 Home</a>
-            <a href="{% url 'members:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">👥 Members</a>
-            <a href="{% url 'projects:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">📁 Projects</a>
-            <a href="{% url 'core:services' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">⚙️ Services</a>
-            <a href="{% url 'events:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">📅 Events</a>
-            <a href="{% url 'jobs:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">💼 Jobs</a>
-            <a href="{% url 'core:about' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">ℹ️ About</a>
-            <a href="{% url 'core:contact' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">📞 Contact Us</a>
+            {% if user.is_authenticated %}
+                <!-- LOGGED IN MODE: Simplified mobile menu -->
+                <a href="{% url 'accounts:dashboard' %}" class="block py-3 px-3 rounded-lg text-base font-medium {% if '/dashboard/' in request.path %}text-purple-600 bg-purple-50 dark:bg-purple-900/20{% else %}text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %} transition-all">📊 Dashboard</a>
+                <a href="{% url 'members:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">👥 Network</a>
+                <a href="{% url 'projects:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">📁 Projects</a>
+                <a href="{% url 'jobs:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">💼 Jobs</a>
+            {% else %}
+                <!-- PUBLIC MODE: Full mobile menu -->
+                <a href="{% url 'core:home' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">🏠 Home</a>
+                <a href="{% url 'members:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">👥 Members</a>
+                <a href="{% url 'projects:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">📁 Projects</a>
+                <a href="{% url 'core:services' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">⚙️ Services</a>
+                <a href="{% url 'events:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">📅 Events</a>
+                <a href="{% url 'jobs:list' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">💼 Jobs</a>
+                <a href="{% url 'core:about' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">ℹ️ About</a>
+                <a href="{% url 'core:contact' %}" class="block py-3 px-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">📞 Contact Us</a>
+            {% endif %}
         </nav>
         <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 flex gap-3">
-            <a href="{% url 'accounts:login' %}" class="flex-1 text-center py-3 text-purple-600 font-medium text-base border border-purple-500 rounded-lg hover:bg-purple-50 transition-all">Sign in</a>
-            <a href="{% url 'accounts:signup' %}" class="flex-1 text-center py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-medium text-base rounded-lg hover:shadow-md transition-all">Sign up</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'accounts:profile' %}" class="flex-1 text-center py-3 text-purple-600 font-medium border border-purple-500 rounded-lg hover:bg-purple-50 transition-all">Profile</a>
+                <a href="{% url 'accounts:logout' %}" class="flex-1 text-center py-3 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 transition-all">Sign Out</a>
+            {% else %}
+                <a href="{% url 'accounts:login' %}" class="flex-1 text-center py-3 text-purple-600 font-medium border border-purple-500 rounded-lg hover:bg-purple-50 transition-all">Sign in</a>
+                <a href="{% url 'accounts:signup' %}" class="flex-1 text-center py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-medium rounded-lg hover:shadow-md transition-all">Sign up</a>
+            {% endif %}
         </div>
     </div>
 </div>
-

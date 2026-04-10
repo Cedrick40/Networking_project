@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-3xl">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Edit Profile</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-1">Update your personal information to get discovered</p>
+        </div>
+        
+        <form method="post" enctype="multipart/form-data" class="p-6 space-y-6">
+            {% csrf_token %}
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Username -->
+                <div>
+                    <label for="id_username" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Username
+                    </label>
+                    <input type="text" name="username" id="id_username" value="{{ form.username.value|default:'' }}" 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    {% if form.username.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.username.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Email -->
+                <div>
+                    <label for="id_email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Email Address
+                    </label>
+                    <input type="email" name="email" id="id_email" value="{{ form.email.value|default:'' }}" 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    {% if form.email.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.email.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Bio - Full Width with ID -->
+                <div class="md:col-span-2">
+                    <label for="bio" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Bio
+                    </label>
+                    <textarea name="bio" id="bio" rows="4" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">{{ form.bio.value|default:'' }}</textarea>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Tell us about yourself, your experience, and what you're working on</p>
+                    {% if form.bio.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.bio.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Avatar with ID -->
+                <div>
+                    <label for="avatar" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Profile Picture
+                    </label>
+                    <input type="file" name="avatar" id="avatar" accept="image/*" 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    {% if form.avatar.value %}
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Current: {{ form.avatar.value }}</p>
+                    {% endif %}
+                    {% if form.avatar.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.avatar.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Location -->
+                <div>
+                    <label for="id_location" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Location
+                    </label>
+                    <input type="text" name="location" id="id_location" value="{{ form.location.value|default:'' }}" 
+                           placeholder="e.g., San Francisco, CA" 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    {% if form.location.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.location.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Job Title with ID -->
+                <div>
+                    <label for="job_title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Job Title
+                    </label>
+                    <input type="text" name="job_title" id="job_title" value="{{ form.job_title.value|default:'' }}" 
+                           placeholder="e.g., Senior Software Engineer" 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    {% if form.job_title.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.job_title.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Company -->
+                <div>
+                    <label for="id_company" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Company
+                    </label>
+                    <input type="text" name="company" id="id_company" value="{{ form.company.value|default:'' }}" 
+                           placeholder="e.g., Google, Microsoft, Startup" 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    {% if form.company.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.company.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Experience Years -->
+                <div>
+                    <label for="id_experience_years" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Years of Experience
+                    </label>
+                    <input type="number" name="experience_years" id="id_experience_years" value="{{ form.experience_years.value|default:'0' }}" 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    {% if form.experience_years.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.experience_years.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Skills with ID -->
+                <div class="md:col-span-2">
+                    <label for="skills" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Skills
+                    </label>
+                    <input type="text" name="skills" id="skills" value="{{ form.skills.value|default:'' }}" 
+                           placeholder="Python, Django, JavaScript, React, AWS" 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Enter skills separated by commas</p>
+                    {% if form.skills.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.skills.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Social Links Section -->
+                <div class="md:col-span-2">
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">Social Links</h3>
+                </div>
+                
+                <!-- GitHub -->
+                <div>
+                    <label for="id_github" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        GitHub
+                    </label>
+                    <input type="url" name="github" id="id_github" value="{{ form.github.value|default:'' }}" 
+                           placeholder="https://github.com/username" 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    {% if form.github.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.github.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- LinkedIn -->
+                <div>
+                    <label for="id_linkedin" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        LinkedIn
+                    </label>
+                    <input type="url" name="linkedin" id="id_linkedin" value="{{ form.linkedin.value|default:'' }}" 
+                           placeholder="https://linkedin.com/in/username" 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    {% if form.linkedin.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.linkedin.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Twitter -->
+                <div>
+                    <label for="id_twitter" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Twitter
+                    </label>
+                    <input type="url" name="twitter" id="id_twitter" value="{{ form.twitter.value|default:'' }}" 
+                           placeholder="https://twitter.com/username" 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    {% if form.twitter.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.twitter.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Website -->
+                <div>
+                    <label for="id_website" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Website
+                    </label>
+                    <input type="url" name="website" id="id_website" value="{{ form.website.value|default:'' }}" 
+                           placeholder="https://yourwebsite.com" 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    {% if form.website.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.website.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Profile Visibility -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center">
+                        <input type="checkbox" name="is_public" id="id_is_public" {% if form.is_public.value %}checked{% endif %} 
+                               class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500">
+                        <label for="id_is_public" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                            Make my profile public
+                        </label>
+                    </div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Public profiles can be seen by other members</p>
+                </div>
+            </div>
+            
+            <div class="flex gap-3 pt-4">
+                <button type="submit" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+                    Save Changes
+                </button>
+                <a href="{% url 'accounts:profile' %}" class="px-6 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

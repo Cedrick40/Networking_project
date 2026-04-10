@@ -21,6 +21,11 @@
                 }
             }
         }
+        
+// Clear all messages when page unloads (previons page's messages)
+window.addEventListener('beforeunload', function() {
+    // Messages will be cleared by the browser anyway
+});
     </script>
     
     <!-- Custom CSS -->
@@ -60,6 +65,7 @@
     <main>
         {% block content %}{% endblock %}
     </main>
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
     
     <!--js handles everything -->
     
@@ -68,5 +74,10 @@
     <script src="{% static 'js/mobile.js' %}"></script>
     <script src="{% static 'js/search.js' %}"></script>
     <!--<script src="{% static 'js/header.js' %}"></script> -->
+    <script src="{% static 'js/carousel.js' %}"></script>
+<script src="{% static 'js/feed.js' %}"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
+<script src="{% static 'js/welcome.js' %}"></script>
+<script src="{% static 'js/messages.js' %}"></script>
 </body>
 </html>

@@ -1,0 +1,125 @@
+<!-- Welcome Onboarding Modal -->
+<div id="welcomeModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm transition-all duration-300 hidden overflow-y-auto" data-show-modal="{{ user.has_seen_welcome|yesno:'false,true' }}">
+    <div class="relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl max-w-2xl w-full my-8 shadow-2xl border border-purple-500/30 animate-fade-in-up max-h-[90vh] overflow-y-auto">
+        
+        <!-- Sticky Close button -->
+        <button onclick="closeWelcomeModal()" class="sticky top-4 float-right mr-4 mt-4 z-10 bg-gray-800/80 rounded-full p-2 text-gray-400 hover:text-white transition backdrop-blur-sm">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        
+        <!-- Header with Logo instead of avatar -->
+        <div class="text-center px-6 pt-6 pb-2">
+            <div class="w-24 h-24 mx-auto mb-4 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full flex items-center justify-center p-2">
+                {% load static %}
+                <img src="{% static 'images/logo/techhoodnet-logo.png' %}" alt="TechHoodNet Logo" class="w-16 h-16 object-contain animate-bounce-slow">
+            </div>
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Welcome to TechHoodNet! 🎉</h2>
+            <p class="text-purple-300 text-sm md:text-base">Your tech community awaits</p>
+        </div>
+        
+        <!-- Features grid -->
+        <div class="p-6 pt-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <div class="bg-white/5 rounded-xl p-4 hover:bg-white/10 transition group">
+                    <div class="text-3xl mb-2">📝</div>
+                    <h3 class="font-semibold text-white text-sm md:text-base">Create Posts</h3>
+                    <p class class="text-gray-400 text-xs md:text-sm">Share your projects, ideas, and updates with the community</p>
+                </div>
+                <div class="bg-white/5 rounded-xl p-4 hover:bg-white/10 transition group">
+                    <div class="text-3xl mb-2">💬</div>
+                    <h3 class="font-semibold text-white text-sm md:text-base">Engage & Comment</h3>
+                    <p class="text-gray-400 text-xs md:text-sm">Connect with other tech professionals through comments</p>
+                </div>
+                <div class="bg-white/5 rounded-xl p-4 hover:bg-white/10 transition group">
+                    <div class="text-3xl mb-2">👥</div>
+                    <h3 class="font-semibold text-white text-sm md:text-base">Build Network</h3>
+                    <p class="text-gray-400 text-xs md:text-sm">Connect with like-minded professionals worldwide</p>
+                </div>
+                <div class="bg-white/5 rounded-xl p-4 hover:bg-white/10 transition group">
+                    <div class="text-3xl mb-2">📁</div>
+                    <h3 class="font-semibold text-white text-sm md:text-base">Showcase Work</h3>
+                    <p class="text-gray-400 text-xs md:text-sm">Share your projects and get feedback from peers</p>
+                </div>
+            </div>
+            
+            <!-- Tips section -->
+            <div class="bg-purple-500/10 rounded-xl p-4 mb-6 border border-purple-500/20">
+                <h3 class="font-semibold text-purple-300 text-sm md:text-base mb-2">💡 Quick Tips to Get Started:</h3>
+                <ul class="text-xs md:text-sm text-gray-300 space-y-1">
+                    <li>• Complete your profile to get discovered</li>
+                    <li>• Add your skills to connect with relevant opportunities</li>
+                    <li>• Create your first post to introduce yourself</li>
+                    <li>• Explore member directory to find peers</li>
+                </ul>
+            </div>
+            
+            <!-- Action buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 pb-2">
+                <button onclick="completeProfile()" class="px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg hover:from-purple-600 hover:to-purple-700 transition font-medium text-sm md:text-base">
+                    Complete Your Profile →
+                </button>
+                <button onclick="closeWelcomeModal()" class="px-4 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 transition text-sm md:text-base">
+                    Explore Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes bounceSlow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.animate-bounce-slow {
+    animation: bounceSlow 1.5s ease-in-out infinite;
+}
+
+/* Custom scrollbar for modal */
+#welcomeModal .overflow-y-auto::-webkit-scrollbar {
+    width: 4px;
+}
+
+#welcomeModal .overflow-y-auto::-webkit-scrollbar-track {
+    background: rgba(55, 65, 81, 0.5);
+    border-radius: 4px;
+}
+
+#welcomeModal .overflow-y-auto::-webkit-scrollbar-thumb {
+    background: #8b5cf6;
+    border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    #welcomeModal .rounded-2xl {
+        margin: 1rem;
+    }
+    
+    #welcomeModal .p-6 {
+        padding: 1rem;
+    }
+}
+</style>

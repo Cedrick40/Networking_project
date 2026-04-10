@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'apps.projects',
     'apps.events',
     'apps.jobs',
+    'apps.posts',
 ]
 
 MIDDLEWARE = [
@@ -155,7 +156,7 @@ AUTH_USER_MODEL = 'accounts.User'
 
 # Login/Logout redirects
 LOGIN_URL = 'accounts:login'
-LOGIN_REDIRECT_URL = 'core:home'
+LOGIN_REDIRECT_URL = 'accounts:dashboard'
 LOGOUT_REDIRECT_URL = 'core:home'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
