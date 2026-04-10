@@ -1,520 +1,246 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block extra_head %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
-<style>
-    :root {
-        --swiper-theme-color: #3b82f6;
-        --swiper-navigation-size: 24px;
-    }
-
-    /* Fix for fade effect */
-    .swiper-fade .swiper-slide {
-        opacity: 0 !important;
-        transition: opacity 1.2s ease-in-out !important;
-    }
-    
-    .swiper-fade .swiper-slide-active {
-        opacity: 1 !important;
-    }
-
-    .full-width-slider {
-        width: 100vw;
-        position: relative;
-        left: 50%;
-        right: 50%;
-        margin-left: -50vw;
-        margin-right: -50vw;
-    }
-
-    .custom-swiper .swiper-pagination-bullet {
-        background: #fff !important;
-        opacity: 0.5;
-        transition: all 0.3s ease;
-    }
-
-    .custom-swiper .swiper-pagination-bullet-active {
-        width: 30px !important;
-        border-radius: 5px !important;
-        opacity: 1 !important;
-        background: #3b82f6 !important;
-    }
-
-    .custom-swiper .swiper-button-next, 
-    .custom-swiper .swiper-button-prev {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        color: white !important;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        transition: all 0.2s ease;
-    }
-
-    @media (max-width: 768px) {
-        .swiper-button-next, .swiper-button-prev { display: none; }
-    }
-
-    /* Feature cards animation */
-    .feature-card {
-        transition: all 0.3s ease;
-    }
-    
-    .feature-card:hover {
-        transform: translateY(-10px);
-    }
-
-    /* Stats counter animation */
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .stat-item {
-        animation: fadeInUp 0.6s ease-out forwards;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
-<div class="flex flex-col min-h-screen">
-    <main class="w-full flex-grow">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+
+<div class="reveal" style="width: 100%; height: 100vh;">
+    <div class="slides">
+        <section data-background-image="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1920">
+            <h2 class="slide-label">Software Engineering</h2>
+        </section>
+        <section data-background-image="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1920">
+            <h2 class="slide-label">Data Science & Networks</h2>
+        </section>
+        <section data-background-image="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1920">
+            <h2 class="slide-label">Future of Technology</h2>
+        </section>
+    </div>
+</div>
+
+<div class="info-section">
+    <div class="container">
+        <div class="glow-orb"></div>
+        <div class="badge">Networking the Future</div>
+        <h1 class="gradient-text">About TechHoodNet</h1>
+        <p class="description">
+            TechHoodNet is a premier networking hub for technology enthusiasts and professionals. 
+            We bridge the gap between learning and industry application through collaborative projects 
+            and expert mentorship.
+        </p>
         
-        <section class="full-width-slider w-full h-[60vh] md:h-[85vh] overflow-hidden relative">
-            <div class="swiper mySwiper custom-swiper w-full h-full">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide relative">
-                        <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=1600" class="w-full h-full object-cover" alt="Networking">
-                        <div class="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center p-6">
-                            <div class="max-w-4xl">
-                                <h2 class="text-5xl md:text-8xl font-black text-white mb-6 uppercase tracking-tighter">Expand Your <span class="text-blue-500">Network</span></h2>
-                                <p class="text-xl md:text-2xl text-gray-200 mb-8 font-light">The heartbeat of the global tech community.</p>
-                                <a href="#" class="inline-block px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-bold transition-all shadow-2xl">Join TechHoodNet</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide relative">
-                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1600" class="w-full h-full object-cover" alt="Collaboration">
-                        <div class="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center p-6">
-                            <div class="max-w-4xl">
-                                <h2 class="text-5xl md:text-8xl font-black text-white mb-6 uppercase tracking-tighter">Build the <span class="text-emerald-500">Future</span></h2>
-                                <p class="text-xl md:text-2xl text-gray-200 mb-8 font-light">Find your next project partner today.</p>
-                                <a href="#" class="inline-block px-10 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full font-bold transition-all shadow-2xl">Start Collaborating</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-pagination !bottom-10"></div>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="icon-circle">🌐</div>
+                <h4>Network</h4>
+                <p>Connect with local and global tech experts in a thriving ecosystem.</p>
             </div>
-        </section>
-
-        <!-- About TechHoodNet Section -->
-        <section class="py-24 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
-            <div class="container mx-auto px-6">
-                <div class="max-w-4xl mx-auto text-center mb-16">
-                    <h2 class="text-4xl md:text-6xl font-black mb-6 dark:text-white">
-                        What is <span class="text-blue-600">TechHoodNet</span>?
-                    </h2>
-                    <div class="w-24 h-1 bg-blue-600 mx-auto mb-8"></div>
-                    <p class="text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
-                        TechHoodNet is more than just a networking platform — it's a thriving ecosystem where developers, designers, and tech enthusiasts come together to learn, collaborate, and grow.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
-                    <div class="space-y-6">
-                        <h3 class="text-3xl font-bold dark:text-white">Our Mission</h3>
-                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-lg">
-                            Founded in 2024, TechHoodNet was built with a simple yet powerful vision: to democratize access to tech opportunities and create a space where talent meets opportunity, regardless of geographic location or background.
-                        </p>
-                        <div class="space-y-4">
-                            <div class="flex items-start gap-4">
-                                <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                                    <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold dark:text-white">Global Community</h4>
-                                    <p class="text-gray-600 dark:text-gray-400">Connect with over 50,000+ tech professionals from 120+ countries</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-4">
-                                <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                                    <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold dark:text-white">Mentorship Program</h4>
-                                    <p class="text-gray-600 dark:text-gray-400">1-on-1 guidance from industry veterans at Google, Microsoft, Meta, and more</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-4">
-                                <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                                    <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold dark:text-white">Project Collaboration</h4>
-                                    <p class="text-gray-600 dark:text-gray-400">Join open-source projects or launch your own with a team of passionate builders</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="relative">
-                        <div class="absolute -inset-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl blur-2xl opacity-20"></div>
-                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1600" alt="TechHoodNet Community" class="relative rounded-2xl shadow-2xl w-full h-auto">
-                    </div>
-                </div>
-
-                <!-- Stats Section -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 border-t border-gray-200 dark:border-gray-700">
-                    <div class="text-center stat-item">
-                        <div class="text-4xl md:text-5xl font-black text-blue-600 mb-2">50K+</div>
-                        <p class="text-gray-600 dark:text-gray-400 font-medium">Active Members</p>
-                    </div>
-                    <div class="text-center stat-item">
-                        <div class="text-4xl md:text-5xl font-black text-blue-600 mb-2">120+</div>
-                        <p class="text-gray-600 dark:text-gray-400 font-medium">Countries</p>
-                    </div>
-                    <div class="text-center stat-item">
-                        <div class="text-4xl md:text-5xl font-black text-blue-600 mb-2">2.5K+</div>
-                        <p class="text-gray-600 dark:text-gray-400 font-medium">Projects Launched</p>
-                    </div>
-                    <div class="text-center stat-item">
-                        <div class="text-4xl md:text-5xl font-black text-blue-600 mb-2">95%</div>
-                        <p class="text-gray-600 dark:text-gray-400 font-medium">Satisfaction Rate</p>
-                    </div>
-                </div>
+            <div class="info-card">
+                <div class="icon-circle">💻</div>
+                <h4>Innovate</h4>
+                <p>Access modern tools and collaborative coding environments built for scale.</p>
             </div>
-        </section>
-
-        <!-- Premium Features Section -->
-        <section class="py-24 bg-white dark:bg-slate-900">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold dark:text-white mb-4">Why Choose <span class="text-blue-600">TechHoodNet</span>?</h2>
-                    <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">Powerful features designed to accelerate your tech career and connect you with opportunities worldwide.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Feature 1: AI-Powered Matching -->
-                    <div class="feature-card bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-8 hover:shadow-xl transition-all">
-                        <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3 dark:text-white">AI-Powered Matching</h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-4">Our intelligent algorithm connects you with the right mentors, collaborators, and opportunities based on your skills and goals.</p>
-                        <div class="flex items-center text-blue-600 font-semibold">
-                            Learn more 
-                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <!-- Feature 2: Virtual Hackathons -->
-                    <div class="feature-card bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-2xl p-8 hover:shadow-xl transition-all">
-                        <div class="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3 dark:text-white">Virtual Hackathons</h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-4">Participate in monthly coding competitions with real prizes, recognition, and opportunities to showcase your skills to top employers.</p>
-                        <div class="flex items-center text-purple-600 font-semibold">
-                            Join next event
-                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <!-- Feature 3: Skill Badges -->
-                    <div class="feature-card bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-2xl p-8 hover:shadow-xl transition-all">
-                        <div class="w-16 h-16 bg-emerald-600 rounded-2xl flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3 dark:text-white">Verified Skill Badges</h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-4">Earn blockchain-verified credentials and badges that you can showcase on LinkedIn and your portfolio to stand out to recruiters.</p>
-                        <div class="flex items-center text-emerald-600 font-semibold">
-                            View badges
-                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <!-- Feature 4: Job Board -->
-                    <div class="feature-card bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 rounded-2xl p-8 hover:shadow-xl transition-all">
-                        <div class="w-16 h-16 bg-amber-600 rounded-2xl flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3 dark:text-white">Exclusive Job Board</h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-4">Get access to job opportunities from 500+ partner companies actively seeking TechHoodNet members for roles.</p>
-                        <div class="flex items-center text-amber-600 font-semibold">
-                            Browse jobs
-                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <!-- Feature 5: Learning Paths -->
-                    <div class="feature-card bg-gradient-to-br from-cyan-50 to-sky-50 dark:from-cyan-900/20 dark:to-sky-900/20 rounded-2xl p-8 hover:shadow-xl transition-all">
-                        <div class="w-16 h-16 bg-cyan-600 rounded-2xl flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3 dark:text-white">Curated Learning Paths</h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-4">Follow personalized learning tracks created by industry experts to master in-demand technologies and frameworks.</p>
-                        <div class="flex items-center text-cyan-600 font-semibold">
-                            Start learning
-                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <!-- Feature 6: Community Events -->
-                    <div class="feature-card bg-gradient-to-br from-rose-50 to-red-50 dark:from-rose-900/20 dark:to-red-900/20 rounded-2xl p-8 hover:shadow-xl transition-all">
-                        <div class="w-16 h-16 bg-rose-600 rounded-2xl flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3 dark:text-white">Live Community Events</h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-4">Weekly AMAs with tech leaders, panel discussions, networking mixers, and virtual coffee chats.</p>
-                        <div class="flex items-center text-rose-600 font-semibold">
-                            View calendar
-                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonials Section -->
-        <section class="py-24 bg-gradient-to-br from-slate-100 to-gray-100 dark:from-slate-800 dark:to-gray-900">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold dark:text-white mb-4">What Our <span class="text-blue-600">Members Say</span></h2>
-                    <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">Join thousands of satisfied developers who've accelerated their careers with TechHoodNet.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
-                        <div class="flex items-center mb-4">
-                            <div class="text-yellow-400 flex">
-                                ★★★★★
-                            </div>
-                        </div>
-                        <p class="text-gray-700 dark:text-gray-300 mb-6">"TechHoodNet completely transformed my career. I found an amazing mentor who helped me land my dream job at a Fortune 500 company!"</p>
-                        <div class="flex items-center">
-                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                                SJ
-                            </div>
-                            <div class="ml-4">
-                                <h4 class="font-bold dark:text-white">Sarah Johnson</h4>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">Senior Developer at Google</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all transform md:translate-y-4">
-                        <div class="flex items-center mb-4">
-                            <div class="text-yellow-400 flex">
-                                ★★★★★
-                            </div>
-                        </div>
-                        <p class="text-gray-700 dark:text-gray-300 mb-6">"The hackathons and collaborative projects helped me build an impressive portfolio. I got hired within 3 months of joining!"</p>
-                        <div class="flex items-center">
-                            <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                                MC
-                            </div>
-                            <div class="ml-4">
-                                <h4 class="font-bold dark:text-white">Michael Chen</h4>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">Full Stack Developer</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
-                        <div class="flex items-center mb-4">
-                            <div class="text-yellow-400 flex">
-                                ★★★★★
-                            </div>
-                        </div>
-                        <p class="text-gray-700 dark:text-gray-300 mb-6">"The community is incredibly supportive. I've made lifelong connections and even co-founded a startup with someone I met here!"</p>
-                        <div class="flex items-center">
-                            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                                ER
-                            </div>
-                            <div class="ml-4">
-                                <h4 class="font-bold dark:text-white">Emily Rodriguez</h4>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">Tech Entrepreneur</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Call to Action Section -->
-        <section class="py-20 bg-blue-600">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl md:text-5xl font-black text-white mb-6">Ready to Level Up Your Tech Career?</h2>
-                <p class="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">Join TechHoodNet today and start connecting with opportunities that will shape your future.</p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#" class="inline-block px-10 py-4 bg-white text-blue-600 rounded-full font-bold hover:bg-gray-100 transition-all shadow-lg">Get Started Free</a>
-                    <a href="#" class="inline-block px-10 py-4 bg-blue-700 text-white rounded-full font-bold hover:bg-blue-800 transition-all shadow-lg">Schedule a Demo</a>
-                </div>
-                <p class="text-blue-100 mt-6 text-sm">Free forever • No credit card required • Cancel anytime</p>
-            </div>
-        </section>
-
-        <section class="py-20 bg-white dark:bg-slate-900">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-5xl font-bold dark:text-white mb-4">What's happening on <span class="text-blue-600">TechHoodNet</span>?</h2>
-                    <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Explore the active ways our members are growing their careers and building tech together.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    <div class="group p-8 bg-slate-50 dark:bg-slate-800 rounded-3xl transition-all duration-300 hover:bg-blue-600 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20">
-                        <div class="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-white group-hover:text-blue-600 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 dark:text-white group-hover:text-white transition-colors">Peer Networking</h3>
-                        <p class="text-gray-600 dark:text-gray-400 group-hover:text-blue-100 transition-colors">Join industry-specific rooms and connect with thousands of developers worldwide.</p>
-                    </div>
-                    <div class="group p-8 bg-slate-50 dark:bg-slate-800 rounded-3xl transition-all duration-300 hover:bg-emerald-600 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/20">
-                        <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-white group-hover:text-emerald-600 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 dark:text-white group-hover:text-white transition-colors">Open Collaboration</h3>
-                        <p class="text-gray-600 dark:text-gray-400 group-hover:text-emerald-100 transition-colors">Post your repos or join existing project teams to build real-world applications.</p>
-                    </div>
-                    <div class="group p-8 bg-slate-50 dark:bg-slate-800 rounded-3xl transition-all duration-300 hover:bg-purple-600 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20">
-                        <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-white group-hover:text-purple-600 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 dark:text-white group-hover:text-white transition-colors">Tech Workshops</h3>
-                        <p class="text-gray-600 dark:text-gray-400 group-hover:text-purple-100 transition-colors">Access weekly live-coding sessions hosted by senior engineers from top tech companies.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-slate-950 text-slate-300 pt-20 pb-10 border-t border-slate-900">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-                <div class="space-y-6">
-                    <h2 class="text-2xl font-black text-white tracking-tighter uppercase">
-                        TechHood<span class="text-blue-600">Net</span>
-                    </h2>
-                    <p class="text-slate-400 leading-relaxed">
-                        Connecting the next generation of developers, creators, and tech leaders through global collaboration and mentorship.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="text-white font-bold mb-6">Platform</h3>
-                    <ul class="space-y-4">
-                        <li><a href="#" class="hover:text-blue-500 transition-colors">Explore Projects</a></li>
-                        <li><a href="#" class="hover:text-blue-500 transition-colors">Find Mentors</a></li>
-                        <li><a href="#" class="hover:text-blue-500 transition-colors">Community Forum</a></li>
-                        <li><a href="#" class="hover:text-blue-500 transition-colors">Job Board</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="text-white font-bold mb-6">Resources</h3>
-                    <ul class="space-y-4">
-                        <li><a href="#" class="hover:text-blue-500 transition-colors">Documentation</a></li>
-                        <li><a href="#" class="hover:text-blue-500 transition-colors">API Reference</a></li>
-                        <li><a href="#" class="hover:text-blue-500 transition-colors">Help Center</a></li>
-                        <li><a href="#" class="hover:text-blue-500 transition-colors">Privacy Policy</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="text-white font-bold mb-6">Stay Updated</h3>
-                    <p class="text-slate-400 mb-4">Get the latest tech news and community updates.</p>
-                    <form class="space-y-3">
-                        <input type="email" placeholder="Email address" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-600 transition-colors text-white">
-                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all">
-                            Subscribe
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="pt-8 border-t border-slate-900 text-center text-sm text-slate-500">
-                <p>&copy; 2026 TechHoodNet. Built by developers, for developers.</p>
+            <div class="info-card">
+                <div class="icon-circle">🚀</div>
+                <h4>Grow</h4>
+                <p>Workshops, hackathons, and career guidance to accelerate your journey.</p>
             </div>
         </div>
-    </footer>
+    </div>
 </div>
-{% endblock %}
 
-{% block extra_js %}
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
+<div class="join-section">
+    <div class="container join-flex">
+        <div class="join-content">
+            <h2 class="gradient-text-alt">Join Our Ecosystem</h2>
+            <p>Ready to level up your technical career? TechHoodNet provides the resources, the community, and the platform to turn your ideas into reality.</p>
+            <ul class="benefit-list">
+                <li><span>✓</span> Priority access to Tech Events</li>
+                <li><span>✓</span> Direct Mentorship from Industry Leads</li>
+                <li><span>✓</span> Exclusive Job & Internship Board</li>
+            </ul>
+            <a href="#" class="cta-button">Get Started Today</a>
+        </div>
+        <div class="join-visual">
+            <div class="floating-box">
+                <div class="code-line"><span>class</span> TechHoodHero {</div>
+                <div class="code-line indent"><span>status</span> = 'Innovating';</div>
+                <div class="code-line">}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* GLOBAL & RESET */
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #000; overflow-x: hidden; }
+    .container { max-width: 1200px; margin: 0 auto; width: 100%; z-index: 2; position: relative; }
+
+    /* REVEAL SLIDESHOW STYLES */
+    .reveal { background: #000; }
+    .slide-label { 
+        color: white; 
+        background: rgba(0,0,0,0.6); 
+        padding: 20px; 
+        border-radius: 10px; 
+        display: inline-block; 
+        text-transform: uppercase; 
+        letter-spacing: 3px; 
+        font-family: sans-serif; 
+    }
+
+    /* ABOUT SECTION (FULL SCREEN) */
+    .info-section {
+        background: radial-gradient(circle at center, #0f0f0f 0%, #000000 100%);
+        color: white;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        align-items: center; 
+        justify-content: center;
+        padding: 60px 20px;
+        box-sizing: border-box;
+        position: relative;
+        overflow: hidden;
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 8px 24px;
+        background: rgba(0, 242, 254, 0.1);
+        border: 1px solid #00f2fe;
+        color: #00f2fe;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 30px;
+    }
+
+    .gradient-text {
+        font-size: clamp(2.5rem, 8vw, 4.5rem);
+        font-weight: 900;
+        margin-bottom: 30px;
+        background: linear-gradient(135deg, #ffffff 30%, #00f2fe 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1.1;
+    }
+
+    .description {
+        font-size: clamp(1rem, 2vw, 1.3rem);
+        line-height: 1.8;
+        color: #b0b0b0;
+        max-width: 850px;
+        margin: 0 auto 60px auto;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+    }
+
+    .info-card {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 50px 35px;
+        border-radius: 24px;
+        border: 1px solid rgba(255,255,255,0.05);
+        text-align: left;
+        transition: all 0.4s ease;
+    }
+
+    .info-card:hover {
+        background: rgba(0, 242, 254, 0.05);
+        transform: translateY(-15px);
+        border-color: #00f2fe;
+    }
+
+    .icon-circle {
+        width: 60px; height: 60px;
+        background: linear-gradient(135deg, #00f2fe, #4facfe);
+        border-radius: 16px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.8rem; margin-bottom: 25px; color: #000;
+    }
+
+    .glow-orb {
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        width: 600px; height: 600px;
+        background: radial-gradient(circle, rgba(0, 242, 254, 0.05) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    /* JOIN SECTION (FULL SCREEN) */
+    .join-section {
+        background: linear-gradient(180deg, #0a0a0a 0%, #001214 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 60px 20px;
+        color: white;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .join-flex { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
+    .join-content { flex: 1; min-width: 320px; text-align: left; }
+    .join-visual { flex: 1; min-width: 320px; display: flex; justify-content: center; }
+
+    .gradient-text-alt {
+        font-size: 3.5rem; font-weight: 800;
+        background: linear-gradient(90deg, #00f2fe, #4facfe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 25px;
+    }
+
+    .benefit-list { list-style: none; padding: 0; margin: 30px 0; }
+    .benefit-list li { margin: 15px 0; font-size: 1.1rem; color: #ddd; }
+    .benefit-list span { color: #00f2fe; font-weight: bold; margin-right: 10px; }
+
+    .cta-button {
+        display: inline-block; padding: 18px 45px;
+        background: #00f2fe; color: #000;
+        text-decoration: none; font-weight: bold;
+        border-radius: 50px; transition: all 0.3s ease;
+    }
+    .cta-button:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 242, 254, 0.4); }
+
+    .floating-box {
+        background: #111; padding: 45px; border-radius: 20px;
+        border: 1px solid #333; font-family: 'Courier New', monospace;
+        box-shadow: 20px 20px 60px rgba(0,0,0,0.5);
+    }
+    .code-line span { color: #00f2fe; }
+    .indent { padding-left: 20px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+        .info-card { text-align: center; }
+        .icon-circle { margin: 0 auto 25px auto; }
+        .join-content { text-align: center; }
+        .benefit-list li { text-align: left; }
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var swiper = new Swiper(".mySwiper", {
-            loop: true,
-            speed: 1200,
-            effect: "fade",
-            fadeEffect: { crossFade: true },
-            autoplay: {
-                delay: 6000,
-                disableOnInteraction: false,
-            },
-            pagination: { el: ".swiper-pagination", clickable: true },
-            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-        });
+    Reveal.initialize({
+        embedded: true,
+        hash: false,      
+        controls: false,  
+        progress: false,  
+        center: true,
+        loop: true,
+        autoSlide: 5000, 
+        autoSlideStoppable: false, 
+        transition: 'fade',           
+        backgroundTransition: 'none', 
+        transitionSpeed: 'fast'       
     });
 </script>
 {% endblock %}
