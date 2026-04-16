@@ -735,3 +735,39 @@ body {
     transform: translateY(-10px);
     transition: all 0.3s ease-out;
 }
+/* Mobile Sidebar Transitions */
+#sidebar {
+    transition: transform 0.3s ease-in-out;
+}
+
+#sidebarOverlay {
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1023px) {
+    #sidebar {
+        width: 280px;
+    }
+}
+
+/* Carousel container */
+#projectsCarousel, #jobsCarousel {
+    scroll-behavior: smooth;
+}
+/* Carousel hover effects */
+#projectsCarousel:hover .absolute {
+    opacity: 1;
+}
+
+.absolute {
+    transition: opacity 0.3s ease;
+}
+
+/* Line clamp for text truncation */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

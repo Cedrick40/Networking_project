@@ -8,6 +8,11 @@ from .models import User
 from apps.posts.models import Post
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Count, Q
+from apps.projects.models import Project
+from apps.jobs.models import Job
+from apps.events.models import Event
+from django.utils import timezone
 
 def logout_view(request):
     logout(request)
@@ -60,14 +65,43 @@ def edit_profile(request):
 
 @login_required
 def dashboard(request):
-    """User dashboard view"""
-    posts = Post.objects.all()[:10]  # Get latest 10 posts
+    """User dashboard view with dynamic data"""
+    
+    # Get posts
+    posts = Post.objects.all()[:10]
+    
+    # Get trending projects (ordered by views and likes)
+    trending_projects = Project.objects.annotate(
+        total_engagement=Count('likes') + Count('views')
+    ).order_by('-total_engagement', '-views')[:4]
+    
+    # Get recent jobs
+    recent_jobs = Job.objects.filter(is_active=True)[:4]
+    
+    # Get upcoming events
+    upcoming_events = Event.objects.filter(date__gte=timezone.now())[:3]
+    
+    # Get suggested connections (random users except current user)
+    suggested_connections = User.objects.exclude(id=request.user.id)[:3]
+    
+    # Get recent messages (mock data for now)
+    recent_messages = [
+        {'name': 'Sarah Johnson', 'message': 'Are you free to chat?', 'avatar': '👩‍💻', 'online': True},
+        {'name': 'Michael Chen', 'message': "Let's catch up soon!", 'avatar': '👨‍💻', 'online': True},
+        {'name': 'Emily Rodriguez', 'message': 'Great project!', 'avatar': '👩‍🎨', 'online': False},
+    ]
+    
     context = {
         'user': request.user,
         'posts': posts,
-        'has_seen_welcome': request.user.has_seen_welcome,
+        'trending_projects': trending_projects,
+        'recent_jobs': recent_jobs,
+        'upcoming_events': upcoming_events,
+        'suggested_connections': suggested_connections,
+        'recent_messages': recent_messages,
     }
     return render(request, 'accounts/dashboard.html', context)
+
 @login_required
 def settings(request):
     """User settings view"""
